@@ -23,9 +23,9 @@ WORK = "/kaggle/working"
 OUT = os.path.join(WORK, "smoke")
 DATA = "/tmp/data"
 WORKERS = "2"            # Kaggle has ~4 vCPUs and 11 persistent DataLoaders
-STEPS = 201
-CKPT_FREQ = 100          # evals at step 0, 100, 200
-ANNEAL = 100             # penalty on from step 100: window 1-100 off, 101-200 on
+STEPS = 101
+CKPT_FREQ = 100          # evals at step 0 and 100
+ANNEAL = 0               # penalty active from the first step
 RUN_TIMEOUT = 40 * 60
 
 DOMAINS = ("art_painting", "cartoon", "photo", "sketch")
@@ -74,7 +74,7 @@ sh(f"{sys.executable} -c \"import torch, torchvision, timm;"
 # ---------------------------------------------------------------------- clone
 say("Clone repo")
 shutil.rmtree(CLONE, ignore_errors=True)
-sh(f"git clone --depth 1 {REPO} {CLONE}")
+sh(f"git clone --depth 1 -b ggn-position-gram {REPO} {CLONE}")
 sh("git log --oneline -1", cwd=CLONE)
 # The repo root may itself be the DomainBed tree, or hold it in a subdirectory.
 for cand in (CLONE, os.path.join(CLONE, "DomainBed")):
@@ -143,17 +143,19 @@ if total != 9991:
 
 # ------------------------------------------------------------------ unit tests
 say("ggn unit tests on the Kaggle torch build")
-env = dict(os.environ, PYTHONPATH=SRC, DOMAINBED_WORKERS=WORKERS)
+env = dict(os.environ, PYTHONPATH=SRC, DOMAINBED_WORKERS=WORKERS,
+           PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True")
 tests = sh(f"{sys.executable} -m unittest ggn.tests.test_ggn -v",
            cwd=SRC, env=env, timeout=1800, check=False)
 tests_ok = tests.returncode == 0
 
 # ----------------------------------------------------------------- the runs
+# ERM (0.97 s/step, 8.1 GB) and GGNMatch with 4 layers (1.18 s/step, 11.2 GB)
+# were measured in the previous session; this pass re-checks the 11-layer
+# config, which used to run out of memory before layer_gram gained its second
+# route.
 RUNS = [
-    ("erm_freezebn", "ERM", {"freeze_bn": True}),
     ("ggn_layers11", "GGNMatch", {"ggn_anneal_iters": ANNEAL}),
-    ("ggn_layers4", "GGNMatch", {"ggn_anneal_iters": ANNEAL,
-                                 "ggn_num_layers": 4}),
 ]
 
 summary = {
@@ -211,7 +213,7 @@ def window(rows, step):
     return None
 
 
-hdr = (f"{'run':14s} {'ok':>4s} {'wall_s':>8s} {'warmup_s/it':>12s}"
+hdr = (f"{'run':14s} {'ok':>4s} {'wall_s':>8s} {'first_s/it':>12s}"
        f" {'active_s/it':>12s} {'mem_gb':>7s} {'test_acc':>9s}"
        f" {'ggn':>10s} {'ggn_raw':>10s}")
 print(hdr, flush=True)
@@ -237,12 +239,14 @@ for name, info in summary["runs"].items():
           f" {f(mem, 7, 2)} {f(acc, 9, 4)}"
           f" {f(info['ggn'], 10, 3)} {f(info['ggn_raw'], 10, 3)}", flush=True)
 
-# Cost model for the real grid: 5001 steps, evals every 300 steps.
-erm = summary["runs"]["erm_freezebn"]
+# Cost model for the real grid: 5001 steps, evals every 300 steps. The eval
+# cost is CPU-bound and the same for every algorithm, so take it from the
+# first successful run.
+ref = next((r for r in summary["runs"].values() if r.get("ok")), None)
 base_eval = None
-if erm.get("active_step_s"):
-    train_s = sum(r["step_time"] * CKPT_FREQ for r in erm["checkpoints"][1:])
-    base_eval = max((erm["wall_s"] - train_s - 60.0) / len(erm["checkpoints"]), 1.0)
+if ref and ref.get("active_step_s"):
+    train_s = sum(r["step_time"] * CKPT_FREQ for r in ref["checkpoints"][1:])
+    base_eval = max((ref["wall_s"] - train_s - 60.0) / len(ref["checkpoints"]), 1.0)
 summary["eval_round_s_est"] = base_eval and round(base_eval, 1)
 
 print(f"\nestimated eval round (8 splits, 9991 images): "
@@ -257,7 +261,7 @@ for name, info in summary["runs"].items():
     info["full_run_hours_est"] = round(hours, 2)
     print(f"  {name:14s} {hours:5.2f} h / env   ->  4 envs: {4 * hours:5.2f} h",
           flush=True)
-if all(summary["runs"][k].get("full_run_hours_est")
+if all(k in summary["runs"] and summary["runs"][k].get("full_run_hours_est")
        for k in ("erm_freezebn", "ggn_layers11")):
     grid = 4 * (summary["runs"]["erm_freezebn"]["full_run_hours_est"]
                 + summary["runs"]["ggn_layers11"]["full_run_hours_est"])

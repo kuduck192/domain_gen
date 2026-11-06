@@ -26,11 +26,13 @@ WORKERS = "2"
 
 STEPS = int(os.environ.get("GGN_STEPS", 5001))
 CKPT_FREQ = int(os.environ.get("GGN_CKPT", 300))
-BUDGET_S = float(os.environ.get("GGN_BUDGET_H", 10.8)) * 3600
+BUDGET_S = float(os.environ.get("GGN_BUDGET_H", 11.0)) * 3600
 # Prior per-run wall-clock estimates (seconds), replaced by measurements as
-# soon as one run of that algorithm has finished. Set from the smoke test.
-PRIOR_S = {"GGNMatch": float(os.environ.get("GGN_PRIOR_GGN", 7200)),
-           "ERM": float(os.environ.get("GGN_PRIOR_ERM", 3600))}
+# soon as one run of that algorithm has finished. From the smoke session on a
+# T4: 2.373 s/step for GGNMatch (11 layers, 11.1 GB) and 0.965 s/step for ERM,
+# plus ~40 s per eval round over the eight PACS splits.
+PRIOR_S = {"GGNMatch": float(os.environ.get("GGN_PRIOR_GGN", 5001 * 2.373 + 17 * 40 + 60)),
+           "ERM": float(os.environ.get("GGN_PRIOR_ERM", 5001 * 0.965 + 17 * 40 + 60))}
 
 DOMAINS = ("art_painting", "cartoon", "photo", "sketch")
 
@@ -78,7 +80,7 @@ sh(f"{sys.executable} -c \"import torch; print('torch', torch.__version__,"
 
 say("Clone repo")
 shutil.rmtree(CLONE, ignore_errors=True)
-sh(f"git clone --depth 1 {REPO} {CLONE}")
+sh(f"git clone --depth 1 -b ggn-position-gram {REPO} {CLONE}")
 sh("git log --oneline -1", cwd=CLONE)
 for cand in (CLONE, os.path.join(CLONE, "DomainBed")):
     if os.path.isdir(os.path.join(cand, "domainbed")) and \
@@ -126,14 +128,19 @@ print(f"{link} -> {pacs} ({total} images)", flush=True)
 
 # ------------------------------------------------------------------- the grid
 ENVS = ["A(art_painting)", "C(cartoon)", "P(photo)", "S(sketch)"]
+# One Kaggle session cannot hold all four test envs at 5001 steps, so the grid
+# is split over two sessions: [0, 1] first, then [2, 3].
+ENV_SUBSET = [0, 1]
 RUNS = []
-for e in range(4):
+for e in ENV_SUBSET:
     RUNS.append((f"GGNMatch_env{e}", "GGNMatch", e, {}))
     RUNS.append((f"ERM_env{e}", "ERM", e, {"freeze_bn": True}))
 
-env = dict(os.environ, PYTHONPATH=SRC, DOMAINBED_WORKERS=WORKERS)
+env = dict(os.environ, PYTHONPATH=SRC, DOMAINBED_WORKERS=WORKERS,
+           PYTORCH_CUDA_ALLOC_CONF="expandable_segments:True")
 os.makedirs(OUT, exist_ok=True)
 summary = {"steps": STEPS, "checkpoint_freq": CKPT_FREQ,
+           "env_subset": ENV_SUBSET,
            "budget_h": BUDGET_S / 3600, "runs": {}}
 durations = {"GGNMatch": [], "ERM": []}
 
