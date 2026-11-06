@@ -129,8 +129,9 @@ print(f"{link} -> {pacs} ({total} images)", flush=True)
 # ------------------------------------------------------------------- the grid
 ENVS = ["A(art_painting)", "C(cartoon)", "P(photo)", "S(sketch)"]
 # One Kaggle session cannot hold all four test envs at 5001 steps, so the grid
-# is split over two sessions: [0, 1] first, then [2, 3].
-ENV_SUBSET = [0, 1]
+# is split over two sessions. The second session is pushed as its own kernel
+# with the default below rewritten to "2,3".
+ENV_SUBSET = [int(e) for e in os.environ.get("GGN_ENVS", "0,1").split(",")]
 RUNS = []
 for e in ENV_SUBSET:
     RUNS.append((f"GGNMatch_env{e}", "GGNMatch", e, {}))
