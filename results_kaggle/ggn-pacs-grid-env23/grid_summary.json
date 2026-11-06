@@ -1,0 +1,81 @@
+{
+  "ERM_mean_test_acc": 0.8903,
+  "GGNMatch_mean_test_acc": 0.3705,
+  "budget_h": 11.0,
+  "checkpoint_freq": 300,
+  "env_subset": [
+    2,
+    3
+  ],
+  "runs": {
+    "ERM_env2": {
+      "algorithm": "ERM",
+      "checkpoints": 18,
+      "ggn": null,
+      "hparams": {
+        "freeze_bn": true
+      },
+      "last_step": 5000,
+      "mem_gb": 8.10875129699707,
+      "nll": null,
+      "status": "done",
+      "step_time_s": 0.9513524997234345,
+      "test_env": 2,
+      "test_in_acc": 0.9565868263473054,
+      "test_out_acc": 0.9281437125748503,
+      "train_out_acc_mean": 0.9469568760273135,
+      "wall_h": 1.534
+    },
+    "ERM_env3": {
+      "algorithm": "ERM",
+      "checkpoints": 18,
+      "ggn": null,
+      "hparams": {
+        "freeze_bn": true
+      },
+      "last_step": 5000,
+      "mem_gb": 8.10875129699707,
+      "nll": null,
+      "status": "done",
+      "step_time_s": 0.9522869622707367,
+      "test_env": 3,
+      "test_in_acc": 0.8241094147582697,
+      "test_out_acc": 0.8280254777070064,
+      "train_out_acc_mean": 0.9657670219504985,
+      "wall_h": 1.546
+    },
+    "GGNMatch_env2": {
+      "algorithm": "GGNMatch",
+      "checkpoints": 18,
+      "ggn": 0.11046882836220902,
+      "hparams": {},
+      "last_step": 5000,
+      "mem_gb": 11.051393508911133,
+      "nll": 1.1607866570353509,
+      "status": "done",
+      "step_time_s": 2.2500239634513854,
+      "test_env": 2,
+      "test_in_acc": 0.5374251497005988,
+      "test_out_acc": 0.5179640718562875,
+      "train_out_acc_mean": 0.6558112284156854,
+      "wall_h": 2.878
+    },
+    "GGNMatch_env3": {
+      "algorithm": "GGNMatch",
+      "checkpoints": 18,
+      "ggn": 0.16360183197568404,
+      "hparams": {},
+      "last_step": 5000,
+      "mem_gb": 11.051393508911133,
+      "nll": 1.4414213144034147,
+      "status": "done",
+      "step_time_s": 2.235325368642807,
+      "test_env": 3,
+      "test_in_acc": 0.2035623409669211,
+      "test_out_acc": 0.2089171974522293,
+      "train_out_acc_mean": 0.39363244755760457,
+      "wall_h": 2.799
+    }
+  },
+  "steps": 5001
+}

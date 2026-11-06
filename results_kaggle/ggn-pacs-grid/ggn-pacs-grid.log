@@ -1,0 +1,523 @@
+[{"stream_name":"stdout","time":0.970569651,"data":"\n"}
+,{"stream_name":"stdout","time":0.970654564,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":0.970661761,"data":"[    0.0 min, 11.0 h left] Environment\n"}
+,{"stream_name":"stdout","time":0.972218215,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":0.972244149,"data":"$ nvidia-smi\n"}
+,{"stream_name":"stdout","time":1.015856529,"data":"Fri Nov  6 07:16:15 2026       \n"}
+,{"stream_name":"stdout","time":1.015885586,"data":"+-----------------------------------------------------------------------------------------+\n"}
+,{"stream_name":"stdout","time":1.015891123,"data":"| NVIDIA-SMI 580.178.04             Driver Version: 580.178.04     CUDA Version: 13.0     |\n"}
+,{"stream_name":"stdout","time":1.015895406,"data":"+-----------------------------------------+------------------------+----------------------+\n"}
+,{"stream_name":"stdout","time":1.015899895,"data":"| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n"}
+,{"stream_name":"stdout","time":1.015904379,"data":"| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n"}
+,{"stream_name":"stdout","time":1.015908977,"data":"|                                         |                        |               MIG M. |\n"}
+,{"stream_name":"stdout","time":1.015913322,"data":"|=========================================+========================+======================|\n"}
+,{"stream_name":"stdout","time":1.06547981,"data":"|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |\n"}
+,{"stream_name":"stdout","time":1.065511442,"data":"| N/A   50C    P8             12W /   70W |       0MiB /  15360MiB |      0%      Default |\n"}
+,{"stream_name":"stdout","time":1.065516573,"data":"|                                         |                        |                  N/A |\n"}
+,{"stream_name":"stdout","time":1.065521825,"data":"+-----------------------------------------+------------------------+----------------------+\n"}
+,{"stream_name":"stdout","time":1.065527176,"data":"|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |\n"}
+,{"stream_name":"stdout","time":1.065532525,"data":"| N/A   50C    P8             10W /   70W |       0MiB /  15360MiB |      0%      Default |\n"}
+,{"stream_name":"stdout","time":1.065538008,"data":"|                                         |                        |                  N/A |\n"}
+,{"stream_name":"stdout","time":1.06554343,"data":"+-----------------------------------------+------------------------+----------------------+\n"}
+,{"stream_name":"stdout","time":1.066265468,"data":"\n"}
+,{"stream_name":"stdout","time":1.0662838510000001,"data":"+-----------------------------------------------------------------------------------------+\n"}
+,{"stream_name":"stdout","time":1.06628851,"data":"| Processes:                                                                              |\n"}
+,{"stream_name":"stdout","time":1.066293803,"data":"|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n"}
+,{"stream_name":"stdout","time":1.06629912,"data":"|        ID   ID                                                               Usage      |\n"}
+,{"stream_name":"stdout","time":1.066304566,"data":"|=========================================================================================|\n"}
+,{"stream_name":"stdout","time":1.067876016,"data":"|  No running processes found                                                             |\n"}
+,{"stream_name":"stdout","time":1.067916288,"data":"+-----------------------------------------------------------------------------------------+\n"}
+,{"stream_name":"stdout","time":1.394263677,"data":"[exit 0 in 0.4s]\n"}
+,{"stream_name":"stdout","time":1.394304677,"data":"$ nproc; free -g\n"}
+,{"stream_name":"stdout","time":1.398421874,"data":"4\n"}
+,{"stream_name":"stdout","time":1.430920946,"data":"               total        used        free      shared  buff/cache   available\n"}
+,{"stream_name":"stdout","time":1.430945763,"data":"Mem:              31           1          26           0           4          30\n"}
+,{"stream_name":"stdout","time":1.430949546,"data":"Swap:              0           0           0\n"}
+,{"stream_name":"stdout","time":1.432694967,"data":"[exit 0 in 0.0s]\n"}
+,{"stream_name":"stdout","time":1.432718512,"data":"$ /usr/bin/python3 -c \"import torch; print('torch', torch.__version__, torch.cuda.get_device_name(0))\"\n"}
+,{"stream_name":"stdout","time":9.941225459,"data":"torch 2.11.0+cu130 Tesla T4\n"}
+,{"stream_name":"stdout","time":13.282936288,"data":"[exit 0 in 11.9s]\n"}
+,{"stream_name":"stdout","time":13.282969028,"data":"\n"}
+,{"stream_name":"stdout","time":13.28297417,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":13.282978884,"data":"[    0.2 min, 11.0 h left] Clone repo\n"}
+,{"stream_name":"stdout","time":13.282982626,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":13.282989748,"data":"$ git clone --depth 1 -b ggn-position-gram https://github.com/kuduck192/domain_gen.git /tmp/domain_gen\n"}
+,{"stream_name":"stdout","time":13.312735814,"data":"Cloning into '/tmp/domain_gen'...\n"}
+,{"stream_name":"stdout","time":14.092885648,"data":"[exit 0 in 0.8s]\n"}
+,{"stream_name":"stdout","time":14.092915145,"data":"$ git log --oneline -1\n"}
+,{"stream_name":"stdout","time":14.100362736,"data":"b4a21bd kaggle: session runners for the PACS GGNMatch grid\n"}
+,{"stream_name":"stdout","time":14.101515972,"data":"[exit 0 in 0.0s]\n"}
+,{"stream_name":"stdout","time":14.101538723,"data":"source tree: /tmp/domain_gen\n"}
+,{"stream_name":"stdout","time":14.101542623,"data":"\n"}
+,{"stream_name":"stdout","time":14.101545965,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":14.101569002,"data":"[    0.2 min, 11.0 h left] Dependencies\n"}
+,{"stream_name":"stdout","time":14.101573702,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":14.179148177,"data":"$ /usr/bin/python3 -m pip install -q wilds\n"}
+,{"stream_name":"stdout","time":18.255945424,"data":"[exit 0 in 4.1s]\n"}
+,{"stream_name":"stdout","time":19.237014624,"data":"\n"}
+,{"stream_name":"stdout","time":19.237041933,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":19.237047243,"data":"[    0.3 min, 11.0 h left] PACS data\n"}
+,{"stream_name":"stdout","time":19.237051253,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":20.712140447,"data":"/tmp/data/PACS -\u003e /kaggle/input/datasets/ma3ple/pacs-dataset/kfold (9991 images)\n"}
+,{"stream_name":"stdout","time":20.71263291,"data":"\n"}
+,{"stream_name":"stdout","time":20.712646177,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":20.712651279,"data":"[    0.3 min, 11.0 h left] GGNMatch_env0  (test env 0 = A(art_painting), estimate 3.50 h)\n"}
+,{"stream_name":"stdout","time":20.712666611,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":20.712670794,"data":"$ /usr/bin/python3 -m domainbed.scripts.train --data_dir /tmp/data --dataset PACS --algorithm GGNMatch --test_envs 0 --steps 5001 --checkpoint_freq 300 --skip_model_save --output_dir /kaggle/working/grid/GGNMatch_env0\n"}
+,{"stream_name":"stdout","time":29.224529936,"data":"/usr/local/lib/python3.13/dist-packages/outdated/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools\u003c81.\n"}
+,{"stream_name":"stdout","time":29.224563691,"data":"  from pkg_resources import parse_version\n"}
+,{"stream_name":"stdout","time":32.144272395,"data":"/tmp/domain_gen/domainbed/lib/misc.py:30: SyntaxWarning: invalid escape sequence '\\d'\n"}
+,{"stream_name":"stdout","time":32.144300906,"data":"  ''' return proj_{B(h, \\delta)}(adv_h), Euclidean projection to Euclidean ball'''\n"}
+,{"stream_name":"stdout","time":35.700801372,"data":"Environment:\n"}
+,{"stream_name":"stdout","time":35.700885488,"data":"\tPython: 3.13.16\n"}
+,{"stream_name":"stdout","time":35.700932609,"data":"\tPyTorch: 2.11.0+cu130\n"}
+,{"stream_name":"stdout","time":35.701012115,"data":"\tTorchvision: 0.26.0+cu130\n"}
+,{"stream_name":"stdout","time":35.70110941,"data":"\tCUDA: 13.0\n"}
+,{"stream_name":"stdout","time":36.88204962,"data":"\tCUDNN: 92700\n"}
+,{"stream_name":"stdout","time":36.882077598,"data":"\tNumPy: 2.1.3\n"}
+,{"stream_name":"stdout","time":36.882083773,"data":"\tPIL: 13.0.0\n"}
+,{"stream_name":"stdout","time":36.882193049,"data":"Args:\n"}
+,{"stream_name":"stdout","time":36.882287636,"data":"\talgorithm: GGNMatch\n"}
+,{"stream_name":"stdout","time":36.882300092,"data":"\tcheckpoint_freq: 300\n"}
+,{"stream_name":"stdout","time":36.882324984,"data":"\tdata_dir: /tmp/data\n"}
+,{"stream_name":"stdout","time":36.882461853,"data":"\tdataset: PACS\n"}
+,{"stream_name":"stdout","time":36.882504036,"data":"\tholdout_fraction: 0.2\n"}
+,{"stream_name":"stdout","time":36.882619643,"data":"\thparams: None\n"}
+,{"stream_name":"stdout","time":36.882676032,"data":"\thparams_seed: 0\n"}
+,{"stream_name":"stdout","time":36.882724979,"data":"\toutput_dir: /kaggle/working/grid/GGNMatch_env0\n"}
+,{"stream_name":"stdout","time":36.882828189,"data":"\tsave_model_every_checkpoint: False\n"}
+,{"stream_name":"stdout","time":36.882941376,"data":"\tseed: 0\n"}
+,{"stream_name":"stdout","time":36.883034847,"data":"\tskip_model_save: True\n"}
+,{"stream_name":"stdout","time":36.883083055,"data":"\tsteps: 5001\n"}
+,{"stream_name":"stdout","time":36.883148715,"data":"\ttask: domain_generalization\n"}
+,{"stream_name":"stdout","time":36.88321098,"data":"\ttest_envs: [0]\n"}
+,{"stream_name":"stdout","time":36.883307448,"data":"\ttrial_seed: 0\n"}
+,{"stream_name":"stdout","time":36.883410833,"data":"\tuda_holdout_fraction: 0\n"}
+,{"stream_name":"stdout","time":36.893439615,"data":"HParams:\n"}
+,{"stream_name":"stdout","time":36.893510125,"data":"\tbatch_size: 32\n"}
+,{"stream_name":"stdout","time":36.893558405,"data":"\tclass_balanced: False\n"}
+,{"stream_name":"stdout","time":36.893705909,"data":"\tdata_augmentation: True\n"}
+,{"stream_name":"stdout","time":36.893779709,"data":"\tdinov2: False\n"}
+,{"stream_name":"stdout","time":36.893830949,"data":"\tfreeze_bn: True\n"}
+,{"stream_name":"stdout","time":36.893898727,"data":"\tggn_anneal_iters: 1500\n"}
+,{"stream_name":"stdout","time":36.893951186,"data":"\tggn_blocks: full\n"}
+,{"stream_name":"stdout","time":36.894078301,"data":"\tggn_curvature: ggn\n"}
+,{"stream_name":"stdout","time":36.894125253,"data":"\tggn_grad_lambda: 0.0\n"}
+,{"stream_name":"stdout","time":36.894194148,"data":"\tggn_lambda: 1.0\n"}
+,{"stream_name":"stdout","time":36.894258582,"data":"\tggn_norm: fro\n"}
+,{"stream_name":"stdout","time":36.894371211,"data":"\tggn_normalize: True\n"}
+,{"stream_name":"stdout","time":36.894675729,"data":"\tggn_num_layers: 11\n"}
+,{"stream_name":"stdout","time":36.894690039,"data":"\tggn_num_sketch: 1\n"}
+,{"stream_name":"stdout","time":36.894694783,"data":"\tggn_scale_ema: 0.95\n"}
+,{"stream_name":"stdout","time":36.894698667,"data":"\tggn_sketch: rademacher\n"}
+,{"stream_name":"stdout","time":36.894702507,"data":"\tlars: False\n"}
+,{"stream_name":"stdout","time":36.894723227,"data":"\tlinear_steps: 500\n"}
+,{"stream_name":"stdout","time":36.894807394,"data":"\tlr: 5e-05\n"}
+,{"stream_name":"stdout","time":36.894882917,"data":"\tnonlinear_classifier: False\n"}
+,{"stream_name":"stdout","time":36.894957319,"data":"\tresnet18: False\n"}
+,{"stream_name":"stdout","time":36.895024532,"data":"\tresnet50_augmix: True\n"}
+,{"stream_name":"stdout","time":36.895098004,"data":"\tresnet_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":36.895180169,"data":"\tvit: False\n"}
+,{"stream_name":"stdout","time":36.895267962,"data":"\tvit_attn_tune: False\n"}
+,{"stream_name":"stdout","time":36.895371108,"data":"\tvit_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":36.895458622,"data":"\tweight_decay: 0.0\n"}
+,{"stream_name":"stdout","time":37.982914212,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.\n"}
+,{"stream_name":"stdout","time":37.982948269,"data":"  warnings.warn(\n"}
+,{"stream_name":"stdout","time":37.983214867,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.\n"}
+,{"stream_name":"stdout","time":37.983236909,"data":"  warnings.warn(msg)\n"}
+,{"stream_name":"stdout","time":39.965934138,"data":"Downloading: \"https://download.pytorch.org/models/resnet50-0676ba61.pth\" to /root/.cache/torch/hub/checkpoints/resnet50-0676ba61.pth\n"}
+,{"stream_name":"stdout","time":42.981395852,"data":"\r  0%|          | 0.00/97.8M [00:00\u003c?, ?B/s]\r  1%|1         | 1.25M/97.8M [00:00\u003c00:08, 12.6MB/s]\r  5%|4         | 4.62M/97.8M [00:00\u003c00:03, 25.4MB/s]\r  8%|8         | 8.25M/97.8M [00:00\u003c00:03, 31.0MB/s]\r 12%|#1        | 11.6M/97.8M [00:00\u003c00:02, 32.6MB/s]\r 15%|#5        | 14.8M/97.8M [00:00\u003c00:02, 31.9MB/s]\r 19%|#8        | 18.1M/97.8M [00:00\u003c00:02, 32.3MB/s]\r 23%|##2       | 22.2M/97.8M [00:00\u003c00:02, 35.6MB/s]\r 28%|##7       | 27.1M/97.8M [00:00\u003c00:01, 40.2MB/s]\r 32%|###1      | 31.0M/97.8M [00:00\u003c00:01, 38.6MB/s]\r 36%|###6      | 35.5M/97.8M [00:01\u003c00:01, 40.9MB/s]\r 42%|####1     | 41.0M/97.8M [00:01\u003c00:01, 45.7MB/s]\r 47%|####6     | 45.5M/97.8M [00:01\u003c00:01, 40.4MB/s]\r 51%|#####     | 49.5M/97.8M [00:01\u003c00:01, 40.7MB/s]\r 56%|#####5    | 54.8M/97.8M [00:01\u003c00:01, 44.5MB/s]\r 61%|######    | 59.4M/97.8M [00:01\u003c00:00, 45.3MB/s]\r 65%|######5   | 63.9M/97.8M [00:01\u003c00:00, 41.7MB/s]\r 70%|######9   | 68.0M/97.8M [00:01\u003c00:00, 33.5MB/s]\r 73%|#######3  | 71.5M/97.8M [00:02\u003c00:00, 33.0MB/s]\r 78%|#######8  | 76.8M/97.8M [00:02\u003c00:00, 38.4MB/s]\r 85%|########4 | 82.8M/97.8M [00:02\u003c00:00, 43.9MB/s]\r 89%|########9 | 87.2M/97.8M [00:02\u003c00:00, 38.1MB/s]\r 93%|#########3| 91.2M/97.8M [00:02\u003c00:00, 38.0MB/s]\r100%|##########| 97.8M/97.8M [00:02\u003c00:00, 39.2MB/s]\n"}
+,{"stream_name":"stdout","time":45.016010665,"data":"\n"}
+,{"stream_name":"stdout","time":45.838469348,"data":"\rmodel.safetensors: reconstructing file:   0%|          |  0.00B /  102MB            \u001b[A\rmodel.safetensors: downloading bytes:           |  0.00B            \n"}
+,{"stream_name":"stdout","time":51.566869061,"data":"\rmodel.safetensors: reconstructing file:   0%|          | 12.5kB /  102MB            \u001b[A\rmodel.safetensors: downloading bytes:           | 2.75kB            \rmodel.safetensors: downloading bytes: 4         | 4.85MB,   270B/s  \rmodel.safetensors: downloading bytes: #5        | 15.7MB,  475kB/s  \rmodel.safetensors: downloading bytes: ##6       | 27.5MB, 1.53MB/s  \rmodel.safetensors: downloading bytes: ###6      | 37.8MB, 3.37MB/s  \rmodel.safetensors: downloading bytes: ####4     | 45.5MB, 4.09MB/s  \rmodel.safetensors: downloading bytes: ####9     | 51.2MB, 4.23MB/s  \rmodel.safetensors: downloading bytes: ######    | 61.6MB, 5.02MB/s  \rmodel.safetensors: downloading bytes: ######8   | 69.9MB, 5.89MB/s  \rmodel.safetensors: downloading bytes: #######3  | 75.4MB, 6.31MB/s  \rmodel.safetensors: downloading bytes: ########  | 82.7MB, 6.78MB/s  \rmodel.safetensors: downloading bytes: ########8 | 90.3MB, 7.73MB/s  \rmodel.safetensors: downloading bytes: #########3| 95.6MB, 6.29MB/s  \n"}
+,{"stream_name":"stdout","time":51.581378581,"data":"\rmodel.safetensors: reconstructing file: 100%|##########|  102MB /  102MB, 1.22kB/s  \u001b[A\rmodel.safetensors: downloading bytes: ##########| 96.2MB, 5.99MB/s  \rmodel.safetensors: downloading bytes: ##########| 96.2MB, 5.99MB/s  \n"}
+,{"stream_name":"stdout","time":51.581613859,"data":"\rmodel.safetensors: reconstructing file: 100%|##########|  102MB /  102MB, 8.83MB/s  \n"}
+,{"stream_name":"stdout","time":55.804135873,"data":"/usr/local/lib/python3.13/dist-packages/torch/autograd/graph.py:869: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:335.)\n"}
+,{"stream_name":"stdout","time":55.804172865,"data":"  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n"}
+,{"stream_name":"stdout","time":237.341562622,"data":"env0_in_acc   env0_out_acc  env1_in_acc   env1_out_acc  env2_in_acc   env2_out_acc  env3_in_acc   env3_out_acc  epoch         ggn           ggn_raw       ggn_scale     loss          mem_gb        nll           step          step_time    \n"}
+,{"stream_name":"stdout","time":237.341915675,"data":"0.2684563758  0.2713936430  0.3230277186  0.3461538462  0.5276946108  0.4760479042  0.2643129771  0.2458598726  0.0000000000  1.2763553858  33288.773437  26081.121093  1.9641488791  8.5732541084  1.9641488791  0             4.9302778244 \n"}
+,{"stream_name":"stdout","time":585.409476896,"data":"0.8712629652  0.8606356968  0.9824093817  0.9508547009  0.9947604790  0.9820359281  0.9561068702  0.9401273885  7.1856287425  0.6323750455  544521.52083  443774.82649  0.1692716752  8.8361492157  0.1692716752  300           1.0072452927 \n"}
+,{"stream_name":"stdout","time":933.073613376,"data":"0.8846857840  0.8899755501  0.9936034115  0.9700854701  0.9992514970  0.9880239521  0.9863231552  0.9414012739  14.371257485  0.2422081741  69769.883789  79270.149088  0.0502112054  8.8361492157  0.0502112054  600           1.0044771043 \n"}
+,{"stream_name":"stdout","time":1280.527429661,"data":"0.8352654057  0.8606356968  0.9856076759  0.9401709402  1.0000000000  0.9760479042  0.9920483461  0.9694267516  21.556886227  -0.032344533  -4090.492011  34505.331990  0.0306057372  8.8361492157  0.0306057372  900           1.0032173165 \n"}
+,{"stream_name":"stdout","time":1627.950063348,"data":"0.8401464308  0.8386308068  0.9930703625  0.9572649573  0.9977544910  0.9670658683  0.9904580153  0.9630573248  28.742514970  0.0698031021  6564.4431902  11375.516835  0.0245394569  8.8361492157  0.0245394569  1200          1.0042905442 \n"}
+,{"stream_name":"stdout","time":1975.374063241,"data":"0.7876754118  0.7946210269  0.9856076759  0.9487179487  0.9992514970  0.9760479042  0.9837786260  0.9388535032  35.928143712  -0.008019564  -707.9179019  1113.3931263  0.0199191666  11.051393508  0.0199082941  1500          1.0050621756 \n"}
+,{"stream_name":"stdout","time":2710.661508039,"data":"0.3965832825  0.4180929095  0.6817697228  0.6666666667  0.7911676647  0.7514970060  0.6841603053  0.6917197452  43.113772455  0.3489744563  57665.805846  169300.33165  3.3011153751  11.051393508  2.9521409222  1800          2.2972358886 \n"}
+,{"stream_name":"stdout","time":3448.225323591,"data":"0.5643685174  0.5599022005  0.7308102345  0.6816239316  0.6729041916  0.6377245509  0.7493638677  0.7566878981  50.299401197  0.3338753230  88907.517074  271312.14115  1.0235839121  11.051393508  0.6897085879  2100          2.3044065722 \n"}
+,{"stream_name":"stdout","time":4185.837103386,"data":"0.6888346553  0.6943765281  0.9291044776  0.8995726496  0.9326347305  0.8982035928  0.8931297710  0.8662420382  57.485029940  0.3111934599  36281.847895  105992.34139  0.9197454737  11.051393508  0.6085520121  2400          2.3059409205 \n"}
+,{"stream_name":"stdout","time":4922.089954182,"data":"0.1641244661  0.1662591687  0.1647121535  0.1474358974  0.1264970060  0.1227544910  0.2026081425  0.2038216561  64.670658682  0.3240508612  24285.679841  79816.355716  1.1466508383  11.051393508  0.8225999769  2700          2.3008458320 \n"}
+,{"stream_name":"stdout","time":5653.726344001,"data":"0.4148871263  0.4425427873  0.6988272921  0.6987179487  0.7672155689  0.7245508982  0.7251908397  0.7108280255  71.856287425  0.1171710480  27888.480123  221863.76185  1.6613311217  11.051393508  1.5441600736  3000          2.2847936789 \n"}
+,{"stream_name":"stdout","time":6390.791655428,"data":"0.6772422209  0.6821515892  0.8773987207  0.8482905983  0.8832335329  0.7994011976  0.8654580153  0.8547770701  79.041916167  0.2073538571  44298.023176  185052.48101  0.8536634640  11.051393508  0.6463096057  3300          2.3039095275 \n"}
+,{"stream_name":"stdout","time":7125.244995188,"data":"0.1153142160  0.1613691932  0.1881663113  0.2222222222  0.1145209581  0.1467065868  0.1911577608  0.1770700637  86.227544910  0.1728159701  -1135.808006  1270397.7865  1.2827003235  11.051393508  1.1098843542  3600          2.2948368128 \n"}
+,{"stream_name":"stdout","time":7845.481393239,"data":"0.2196461257  0.2542787286  0.3694029851  0.3803418803  0.4640718563  0.4790419162  0.2980279898  0.2828025478  93.413173652  0.0589156407  11178.758583  128493.05152  1.9552488593  11.051393508  1.8963332164  3900          2.2467156593 \n"}
+,{"stream_name":"stdout","time":8573.012724577,"data":"0.1909701037  0.2371638142  0.3699360341  0.4059829060  0.5883233533  0.5628742515  0.2608142494  0.2624203822  100.59880239  0.1085769027  25645.804150  237252.32390  1.5826636130  11.051393508  1.4740867100  4200          2.2718178352 \n"}
+,{"stream_name":"stdout","time":9306.796868347,"data":"0.3221476510  0.3691931540  0.6060767591  0.6132478632  0.7133233533  0.6916167665  0.6459923664  0.6280254777  107.78443113  0.1478958599  31498.017976  194575.44416  1.1975958635  11.051393508  1.0497000035  4500          2.2923177663 \n"}
+,{"stream_name":"stdout","time":10042.921560434,"data":"0.4704087858  0.4694376528  0.6620469083  0.6538461538  0.7080838323  0.6826347305  0.6106870229  0.6025477707  114.97005988  0.1611126511  17282.999703  106301.28229  1.0112095735  11.051393508  0.8500969217  4800          2.2983270470 \n"}
+,{"stream_name":"stdout","time":10549.177376605,"data":"0.4655277608  0.4914425428  0.7121535181  0.6944444444  0.8151197605  0.7994011976  0.7671755725  0.7617834395  119.76047904  0.1886526589  10649.167786  55969.166767  1.0097209665  11.051393508  0.8210683103  5000          2.2996459448 \n"}
+,{"stream_name":"stdout","time":10553.493017298,"data":"[exit 0 in 10532.8s]\n"}
+,{"stream_name":"stdout","time":10553.494357686,"data":"{\n"}
+,{"stream_name":"stdout","time":10553.49437957,"data":"  \"status\": \"done\",\n"}
+,{"stream_name":"stdout","time":10553.494385847,"data":"  \"algorithm\": \"GGNMatch\",\n"}
+,{"stream_name":"stdout","time":10553.494391382,"data":"  \"test_env\": 0,\n"}
+,{"stream_name":"stdout","time":10553.494396235,"data":"  \"hparams\": {},\n"}
+,{"stream_name":"stdout","time":10553.494401345,"data":"  \"wall_h\": 2.926,\n"}
+,{"stream_name":"stdout","time":10553.494406495,"data":"  \"checkpoints\": 18,\n"}
+,{"stream_name":"stdout","time":10553.494411676,"data":"  \"last_step\": 5000,\n"}
+,{"stream_name":"stdout","time":10553.494416765,"data":"  \"step_time_s\": 2.2996459448337556,\n"}
+,{"stream_name":"stdout","time":10553.49442184,"data":"  \"mem_gb\": 11.051393508911133,\n"}
+,{"stream_name":"stdout","time":10553.49442682,"data":"  \"test_in_acc\": 0.46552776082977426,\n"}
+,{"stream_name":"stdout","time":10553.494431731,"data":"  \"test_out_acc\": 0.49144254278728605,\n"}
+,{"stream_name":"stdout","time":10553.494436979,"data":"  \"train_out_acc_mean\": 0.7518763605132269,\n"}
+,{"stream_name":"stdout","time":10553.494442278,"data":"  \"ggn\": 0.18865265890024602,\n"}
+,{"stream_name":"stdout","time":10553.494447399,"data":"  \"nll\": 0.821068310290575\n"}
+,{"stream_name":"stdout","time":10553.494453071,"data":"}\n"}
+,{"stream_name":"stdout","time":10553.494731271,"data":"\n"}
+,{"stream_name":"stdout","time":10553.494747745,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":10553.494753203,"data":"[  175.9 min,  8.1 h left] ERM_env0  (test env 0 = A(art_painting), estimate 1.55 h)\n"}
+,{"stream_name":"stdout","time":10553.494758763,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":10553.4947754,"data":"$ /usr/bin/python3 -m domainbed.scripts.train --data_dir /tmp/data --dataset PACS --algorithm ERM --test_envs 0 --steps 5001 --checkpoint_freq 300 --skip_model_save --output_dir /kaggle/working/grid/ERM_env0 --hparams '{\"freeze_bn\": true}'\n"}
+,{"stream_name":"stdout","time":10556.769481448,"data":"/usr/local/lib/python3.13/dist-packages/outdated/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools\u003c81.\n"}
+,{"stream_name":"stdout","time":10556.769522377,"data":"  from pkg_resources import parse_version\n"}
+,{"stream_name":"stdout","time":10559.688944148,"data":"Environment:\n"}
+,{"stream_name":"stdout","time":10559.689146314,"data":"\tPython: 3.13.16\n"}
+,{"stream_name":"stdout","time":10559.68918214,"data":"\tPyTorch: 2.11.0+cu130\n"}
+,{"stream_name":"stdout","time":10559.689258128,"data":"\tTorchvision: 0.26.0+cu130\n"}
+,{"stream_name":"stdout","time":10559.689414734,"data":"\tCUDA: 13.0\n"}
+,{"stream_name":"stdout","time":10559.96707715,"data":"\tCUDNN: 92700\n"}
+,{"stream_name":"stdout","time":10559.96710981,"data":"\tNumPy: 2.1.3\n"}
+,{"stream_name":"stdout","time":10559.967114885,"data":"\tPIL: 13.0.0\n"}
+,{"stream_name":"stdout","time":10559.967202706,"data":"Args:\n"}
+,{"stream_name":"stdout","time":10559.967211642,"data":"\talgorithm: ERM\n"}
+,{"stream_name":"stdout","time":10559.967245951,"data":"\tcheckpoint_freq: 300\n"}
+,{"stream_name":"stdout","time":10559.967313621,"data":"\tdata_dir: /tmp/data\n"}
+,{"stream_name":"stdout","time":10559.967414085,"data":"\tdataset: PACS\n"}
+,{"stream_name":"stdout","time":10559.967463271,"data":"\tholdout_fraction: 0.2\n"}
+,{"stream_name":"stdout","time":10559.967554228,"data":"\thparams: {\"freeze_bn\": true}\n"}
+,{"stream_name":"stdout","time":10559.967750728,"data":"\thparams_seed: 0\n"}
+,{"stream_name":"stdout","time":10559.967834278,"data":"\toutput_dir: /kaggle/working/grid/ERM_env0\n"}
+,{"stream_name":"stdout","time":10559.967910972,"data":"\tsave_model_every_checkpoint: False\n"}
+,{"stream_name":"stdout","time":10559.967965079,"data":"\tseed: 0\n"}
+,{"stream_name":"stdout","time":10559.96803793,"data":"\tskip_model_save: True\n"}
+,{"stream_name":"stdout","time":10559.968096292,"data":"\tsteps: 5001\n"}
+,{"stream_name":"stdout","time":10559.968189863,"data":"\ttask: domain_generalization\n"}
+,{"stream_name":"stdout","time":10559.968264162,"data":"\ttest_envs: [0]\n"}
+,{"stream_name":"stdout","time":10559.96834807,"data":"\ttrial_seed: 0\n"}
+,{"stream_name":"stdout","time":10559.968422666,"data":"\tuda_holdout_fraction: 0\n"}
+,{"stream_name":"stdout","time":10559.97246668,"data":"HParams:\n"}
+,{"stream_name":"stdout","time":10559.972526082,"data":"\tbatch_size: 32\n"}
+,{"stream_name":"stdout","time":10559.972649652,"data":"\tclass_balanced: False\n"}
+,{"stream_name":"stdout","time":10559.972737595,"data":"\tdata_augmentation: True\n"}
+,{"stream_name":"stdout","time":10559.972833449,"data":"\tdinov2: False\n"}
+,{"stream_name":"stdout","time":10559.972883033,"data":"\tfreeze_bn: True\n"}
+,{"stream_name":"stdout","time":10559.972972765,"data":"\tlars: False\n"}
+,{"stream_name":"stdout","time":10559.973033961,"data":"\tlinear_steps: 500\n"}
+,{"stream_name":"stdout","time":10559.973119534,"data":"\tlr: 5e-05\n"}
+,{"stream_name":"stdout","time":10559.973559792,"data":"\tnonlinear_classifier: False\n"}
+,{"stream_name":"stdout","time":10559.97357043,"data":"\tresnet18: False\n"}
+,{"stream_name":"stdout","time":10559.973589585,"data":"\tresnet50_augmix: True\n"}
+,{"stream_name":"stdout","time":10559.973598579,"data":"\tresnet_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":10559.973602806,"data":"\tvit: False\n"}
+,{"stream_name":"stdout","time":10559.97360964,"data":"\tvit_attn_tune: False\n"}
+,{"stream_name":"stdout","time":10559.973710981,"data":"\tvit_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":10559.973756965,"data":"\tweight_decay: 0.0\n"}
+,{"stream_name":"stdout","time":10562.235668749,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.\n"}
+,{"stream_name":"stdout","time":10562.235704829,"data":"  warnings.warn(\n"}
+,{"stream_name":"stdout","time":10562.245292926,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.\n"}
+,{"stream_name":"stdout","time":10562.245356303,"data":"  warnings.warn(msg)\n"}
+,{"stream_name":"stdout","time":10568.323711771,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":10616.263762611,"data":"env0_in_acc   env0_out_acc  env1_in_acc   env1_out_acc  env2_in_acc   env2_out_acc  env3_in_acc   env3_out_acc  epoch         loss          mem_gb        step          step_time    \n"}
+,{"stream_name":"stdout","time":10616.263922398,"data":"0.2684563758  0.2713936430  0.3230277186  0.3461538462  0.5276946108  0.4760479042  0.2643129771  0.2458598726  0.0000000000  1.9641488791  7.9105472565  0             1.6869254112 \n"}
+,{"stream_name":"stdout","time":10961.273207101,"data":"0.8712629652  0.8606356968  0.9824093817  0.9508547009  0.9947604790  0.9820359281  0.9561068702  0.9401273885  7.1856287425  0.1692716752  8.1087512970  300           0.9957007257 \n"}
+,{"stream_name":"stdout","time":11306.531696294,"data":"0.8846857840  0.8899755501  0.9936034115  0.9700854701  0.9992514970  0.9880239521  0.9863231552  0.9414012739  14.371257485  0.0502112054  8.1087512970  600           0.9956357066 \n"}
+,{"stream_name":"stdout","time":11652.695686194,"data":"0.8352654057  0.8606356968  0.9856076759  0.9401709402  1.0000000000  0.9760479042  0.9920483461  0.9694267516  21.556886227  0.0306057372  8.1087512970  900           0.9956168397 \n"}
+,{"stream_name":"stdout","time":11998.379973773,"data":"0.8401464308  0.8386308068  0.9930703625  0.9572649573  0.9977544910  0.9670658683  0.9904580153  0.9630573248  28.742514970  0.0245394569  8.1087512970  1200          0.9951198967 \n"}
+,{"stream_name":"stdout","time":12343.235632299,"data":"0.8865161684  0.8801955990  0.9994669510  0.9722222222  1.0000000000  0.9790419162  0.9936386768  0.9566878981  35.928143712  0.0199082941  8.1087512970  1500          0.9940131076 \n"}
+,{"stream_name":"stdout","time":12683.663534728,"data":"0.8206223307  0.8361858191  0.9941364606  0.9465811966  0.9902694611  0.9610778443  0.9898218830  0.9605095541  43.113772455  0.0273519228  8.1087512970  1800          0.9813003310 \n"}
+,{"stream_name":"stdout","time":13018.800024127,"data":"0.8621110433  0.8679706601  0.9962686567  0.9636752137  0.9992514970  0.9730538922  0.9726463104  0.9299363057  50.299401197  0.0179882445  8.1087512970  2100          0.9633093373 \n"}
+,{"stream_name":"stdout","time":13352.343217742,"data":"0.8907870653  0.8899755501  0.9941364606  0.9615384615  0.9985029940  0.9790419162  0.9933206107  0.9617834395  57.485029940  0.0198705580  8.1087512970  2400          0.9590789318 \n"}
+,{"stream_name":"stdout","time":13686.995045009,"data":"0.8663819402  0.8753056235  0.9946695096  0.9572649573  1.0000000000  0.9790419162  0.9961832061  0.9630573248  64.670658682  0.0140964609  8.1087512970  2700          0.9612222775 \n"}
+,{"stream_name":"stdout","time":14020.289703257,"data":"0.8078096400  0.8581907090  0.9978678038  0.9594017094  0.9940119760  0.9520958084  0.9961832061  0.9515923567  71.856287425  0.0135366506  8.1087512970  3000          0.9580822237 \n"}
+,{"stream_name":"stdout","time":14355.202054193,"data":"0.8218425869  0.8459657702  0.9957356077  0.9572649573  0.9992514970  0.9760479042  0.9968193384  0.9554140127  79.041916167  0.0158162200  8.1087512970  3300          0.9618381921 \n"}
+,{"stream_name":"stdout","time":14688.632796413,"data":"0.8023184869  0.7872860636  0.9952025586  0.9401709402  0.9955089820  0.9431137725  0.9840966921  0.9579617834  86.227544910  0.0223431727  8.1087512970  3600          0.9574369518 \n"}
+,{"stream_name":"stdout","time":15022.989043698,"data":"0.8157413057  0.8092909535  0.9984008529  0.9722222222  0.9992514970  0.9700598802  0.9952290076  0.9643312102  93.413173652  0.0093840582  8.1087512970  3900          0.9609139927 \n"}
+,{"stream_name":"stdout","time":15356.966200718,"data":"0.8840756559  0.8655256724  0.9984008529  0.9572649573  0.9985029940  0.9610778443  0.9974554707  0.9605095541  100.59880239  0.0146430620  8.1087512970  4200          0.9590326484 \n"}
+,{"stream_name":"stdout","time":15691.277624987,"data":"0.8505186089  0.8361858191  0.9978678038  0.9743589744  0.9992514970  0.9820359281  0.9936386768  0.9541401274  107.78443113  0.0102710939  8.1087512970  4500          0.9604827118 \n"}
+,{"stream_name":"stdout","time":16024.439656465,"data":"0.8480780964  0.8410757946  0.9968017058  0.9636752137  0.9992514970  0.9790419162  0.9971374046  0.9503184713  114.97005988  0.0132470688  8.1087512970  4800          0.9584826668 \n"}
+,{"stream_name":"stdout","time":16261.410460693,"data":"0.8364856620  0.8141809291  0.9962686567  0.9658119658  1.0000000000  0.9580838323  0.9952290076  0.9541401274  119.76047904  0.0139595002  8.1087512970  5000          0.9542527473 \n"}
+,{"stream_name":"stdout","time":16263.56249604,"data":"[exit 0 in 5710.1s]\n"}
+,{"stream_name":"stdout","time":16263.56360837,"data":"{\n"}
+,{"stream_name":"stdout","time":16263.563624794,"data":"  \"status\": \"done\",\n"}
+,{"stream_name":"stdout","time":16263.563630693,"data":"  \"algorithm\": \"ERM\",\n"}
+,{"stream_name":"stdout","time":16263.563641869,"data":"  \"test_env\": 0,\n"}
+,{"stream_name":"stdout","time":16263.563646103,"data":"  \"hparams\": {\n"}
+,{"stream_name":"stdout","time":16263.563649431,"data":"    \"freeze_bn\": true\n"}
+,{"stream_name":"stdout","time":16263.563652813,"data":"  },\n"}
+,{"stream_name":"stdout","time":16263.563655952,"data":"  \"wall_h\": 1.586,\n"}
+,{"stream_name":"stdout","time":16263.563659195,"data":"  \"checkpoints\": 18,\n"}
+,{"stream_name":"stdout","time":16263.563662555,"data":"  \"last_step\": 5000,\n"}
+,{"stream_name":"stdout","time":16263.563682653,"data":"  \"step_time_s\": 0.954252747297287,\n"}
+,{"stream_name":"stdout","time":16263.563689082,"data":"  \"mem_gb\": 8.10875129699707,\n"}
+,{"stream_name":"stdout","time":16263.563694954,"data":"  \"test_in_acc\": 0.8364856619890177,\n"}
+,{"stream_name":"stdout","time":16263.563700864,"data":"  \"test_out_acc\": 0.8141809290953546,\n"}
+,{"stream_name":"stdout","time":16263.563705707,"data":"  \"train_out_acc_mean\": 0.9593453085119434,\n"}
+,{"stream_name":"stdout","time":16263.563710502,"data":"  \"ggn\": null,\n"}
+,{"stream_name":"stdout","time":16263.563715324,"data":"  \"nll\": null\n"}
+,{"stream_name":"stdout","time":16263.563720036,"data":"}\n"}
+,{"stream_name":"stdout","time":16263.564045637,"data":"\n"}
+,{"stream_name":"stdout","time":16263.564066076,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":16263.564069884,"data":"[  271.0 min,  6.5 h left] GGNMatch_env1  (test env 1 = C(cartoon), estimate 2.93 h)\n"}
+,{"stream_name":"stdout","time":16263.56407319,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":16263.564076588,"data":"$ /usr/bin/python3 -m domainbed.scripts.train --data_dir /tmp/data --dataset PACS --algorithm GGNMatch --test_envs 1 --steps 5001 --checkpoint_freq 300 --skip_model_save --output_dir /kaggle/working/grid/GGNMatch_env1\n"}
+,{"stream_name":"stdout","time":16266.944091508,"data":"/usr/local/lib/python3.13/dist-packages/outdated/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools\u003c81.\n"}
+,{"stream_name":"stdout","time":16266.944171452,"data":"  from pkg_resources import parse_version\n"}
+,{"stream_name":"stdout","time":16269.728740416,"data":"Environment:\n"}
+,{"stream_name":"stdout","time":16269.728814664,"data":"\tPython: 3.13.16\n"}
+,{"stream_name":"stdout","time":16269.728836539,"data":"\tPyTorch: 2.11.0+cu130\n"}
+,{"stream_name":"stdout","time":16269.728910804,"data":"\tTorchvision: 0.26.0+cu130\n"}
+,{"stream_name":"stdout","time":16269.729039533,"data":"\tCUDA: 13.0\n"}
+,{"stream_name":"stdout","time":16270.001661817,"data":"\tCUDNN: 92700\n"}
+,{"stream_name":"stdout","time":16270.001764415,"data":"\tNumPy: 2.1.3\n"}
+,{"stream_name":"stdout","time":16270.001825732,"data":"\tPIL: 13.0.0\n"}
+,{"stream_name":"stdout","time":16270.001834418,"data":"Args:\n"}
+,{"stream_name":"stdout","time":16270.001941511,"data":"\talgorithm: GGNMatch\n"}
+,{"stream_name":"stdout","time":16270.002016429,"data":"\tcheckpoint_freq: 300\n"}
+,{"stream_name":"stdout","time":16270.002088156,"data":"\tdata_dir: /tmp/data\n"}
+,{"stream_name":"stdout","time":16270.002177639,"data":"\tdataset: PACS\n"}
+,{"stream_name":"stdout","time":16270.002249204,"data":"\tholdout_fraction: 0.2\n"}
+,{"stream_name":"stdout","time":16270.002362061,"data":"\thparams: None\n"}
+,{"stream_name":"stdout","time":16270.002460355,"data":"\thparams_seed: 0\n"}
+,{"stream_name":"stdout","time":16270.002524452,"data":"\toutput_dir: /kaggle/working/grid/GGNMatch_env1\n"}
+,{"stream_name":"stdout","time":16270.00262358,"data":"\tsave_model_every_checkpoint: False\n"}
+,{"stream_name":"stdout","time":16270.002718726,"data":"\tseed: 0\n"}
+,{"stream_name":"stdout","time":16270.002746143,"data":"\tskip_model_save: True\n"}
+,{"stream_name":"stdout","time":16270.002871709,"data":"\tsteps: 5001\n"}
+,{"stream_name":"stdout","time":16270.002956867,"data":"\ttask: domain_generalization\n"}
+,{"stream_name":"stdout","time":16270.00303658,"data":"\ttest_envs: [1]\n"}
+,{"stream_name":"stdout","time":16270.003094805,"data":"\ttrial_seed: 0\n"}
+,{"stream_name":"stdout","time":16270.003686177,"data":"\tuda_holdout_fraction: 0\n"}
+,{"stream_name":"stdout","time":16270.010379457,"data":"HParams:\n"}
+,{"stream_name":"stdout","time":16270.010547355,"data":"\tbatch_size: 32\n"}
+,{"stream_name":"stdout","time":16270.010566156,"data":"\tclass_balanced: False\n"}
+,{"stream_name":"stdout","time":16270.010714836,"data":"\tdata_augmentation: True\n"}
+,{"stream_name":"stdout","time":16270.010769921,"data":"\tdinov2: False\n"}
+,{"stream_name":"stdout","time":16270.010899328,"data":"\tfreeze_bn: True\n"}
+,{"stream_name":"stdout","time":16270.011030572,"data":"\tggn_anneal_iters: 1500\n"}
+,{"stream_name":"stdout","time":16270.011039717,"data":"\tggn_blocks: full\n"}
+,{"stream_name":"stdout","time":16270.011105065,"data":"\tggn_curvature: ggn\n"}
+,{"stream_name":"stdout","time":16270.011260344,"data":"\tggn_grad_lambda: 0.0\n"}
+,{"stream_name":"stdout","time":16270.011322515,"data":"\tggn_lambda: 1.0\n"}
+,{"stream_name":"stdout","time":16270.011419508,"data":"\tggn_norm: fro\n"}
+,{"stream_name":"stdout","time":16270.011541364,"data":"\tggn_normalize: True\n"}
+,{"stream_name":"stdout","time":16270.011703897,"data":"\tggn_num_layers: 11\n"}
+,{"stream_name":"stdout","time":16270.011799335,"data":"\tggn_num_sketch: 1\n"}
+,{"stream_name":"stdout","time":16270.011944713,"data":"\tggn_scale_ema: 0.95\n"}
+,{"stream_name":"stdout","time":16270.012017472,"data":"\tggn_sketch: rademacher\n"}
+,{"stream_name":"stdout","time":16270.012085537,"data":"\tlars: False\n"}
+,{"stream_name":"stdout","time":16270.012859606,"data":"\tlinear_steps: 500\n"}
+,{"stream_name":"stdout","time":16270.012877426,"data":"\tlr: 5e-05\n"}
+,{"stream_name":"stdout","time":16270.012882683,"data":"\tnonlinear_classifier: False\n"}
+,{"stream_name":"stdout","time":16270.012887283,"data":"\tresnet18: False\n"}
+,{"stream_name":"stdout","time":16270.012906021,"data":"\tresnet50_augmix: True\n"}
+,{"stream_name":"stdout","time":16270.012910462,"data":"\tresnet_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":16270.01291487,"data":"\tvit: False\n"}
+,{"stream_name":"stdout","time":16270.012918988,"data":"\tvit_attn_tune: False\n"}
+,{"stream_name":"stdout","time":16270.012923771,"data":"\tvit_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":16270.013042896,"data":"\tweight_decay: 0.0\n"}
+,{"stream_name":"stdout","time":16272.447899717,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.\n"}
+,{"stream_name":"stdout","time":16272.447934517,"data":"  warnings.warn(\n"}
+,{"stream_name":"stdout","time":16272.45309001,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.\n"}
+,{"stream_name":"stdout","time":16272.453115539,"data":"  warnings.warn(msg)\n"}
+,{"stream_name":"stdout","time":16278.624749162,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":16279.933937422,"data":"/usr/local/lib/python3.13/dist-packages/torch/autograd/graph.py:869: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:335.)\n"}
+,{"stream_name":"stdout","time":16279.933976711,"data":"  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n"}
+,{"stream_name":"stdout","time":16327.530626325,"data":"env0_in_acc   env0_out_acc  env1_in_acc   env1_out_acc  env2_in_acc   env2_out_acc  env3_in_acc   env3_out_acc  epoch         ggn           ggn_raw       ggn_scale     loss          mem_gb        nll           step          step_time    \n"}
+,{"stream_name":"stdout","time":16327.531077131,"data":"0.3276388041  0.3056234719  0.2457356077  0.2393162393  0.5441616766  0.5089820359  0.2286895674  0.1974522293  0.0000000000  1.4000471830  29396.412109  20996.734375  1.9486752748  8.5732541084  1.9486752748  0             2.2620387077 \n"}
+,{"stream_name":"stdout","time":16663.800132876,"data":"0.9841366687  0.9364303178  0.7798507463  0.7927350427  0.9932634731  0.9640718563  0.9723282443  0.9490445860  7.1856287425  0.7530680547  124371.00358  144360.90527  0.1562771339  8.8361492157  0.1562771339  300           0.9648143435 \n"}
+,{"stream_name":"stdout","time":17002.232877929,"data":"0.9713239780  0.9119804401  0.7585287846  0.7735042735  0.9910179641  0.9790419162  0.9837786260  0.9490445860  14.371257485  0.6866906390  97978.513732  67247.584228  0.0547331455  8.8361492157  0.0547331455  600           0.9712604165 \n"}
+,{"stream_name":"stdout","time":17340.033645806,"data":"0.9884075656  0.9388753056  0.7915778252  0.8012820513  0.9992514970  0.9820359281  0.9885496183  0.9554140127  21.556886227  0.0018619035  -1439.837122  8904.3838704  0.0349688157  8.8361492157  0.0349688157  900           0.9688225102 \n"}
+,{"stream_name":"stdout","time":17678.23293869,"data":"0.9908480781  0.9633251834  0.8166311301  0.8311965812  1.0000000000  0.9880239521  0.9904580153  0.9605095541  28.742514970  0.1512421134  6505.0351562  5618.8380432  0.0310960045  8.8361492157  0.0310960045  1200          0.9701782997 \n"}
+,{"stream_name":"stdout","time":18017.316714021,"data":"0.9768151312  0.9535452323  0.8128997868  0.8012820513  0.9985029940  0.9700598802  0.9825063613  0.9426751592  35.928143712  0.4250589746  12508.658888  6710.3620961  0.0216992468  11.051393508  0.0217126996  1500          0.9731048735 \n"}
+,{"stream_name":"stdout","time":18737.406812549,"data":"0.6802928615  0.6479217604  0.5698294243  0.5662393162  0.8450598802  0.7874251497  0.5400763359  0.5337579618  43.113772455  0.7792225195  114851.57710  162663.91969  1.9354940953  11.051393508  1.1562715720  1800          2.2454320470 \n"}
+,{"stream_name":"stdout","time":19454.0950585,"data":"0.2190359976  0.2322738386  0.3160980810  0.3119658120  0.2934131737  0.3083832335  0.3835877863  0.3796178344  50.299401197  0.4998154629  105319.32298  135512.14496  2.8644233665  11.051393508  2.3646079092  2100          2.2337154412 \n"}
+,{"stream_name":"stdout","time":20168.258272119,"data":"0.5857230018  0.5501222494  0.6044776119  0.6068376068  0.7732035928  0.7425149701  0.6634860051  0.6802547771  57.485029940  0.1707541740  10182.261387  69027.688938  1.8653902968  11.051393508  1.6946361276  2400          2.2248812095 \n"}
+,{"stream_name":"stdout","time":20888.364536067,"data":"0.5045759610  0.4963325183  0.4019189765  0.3846153846  0.6938622754  0.6946107784  0.5143129771  0.5312101911  64.670658682  0.2972086059  92410.877230  315385.04839  1.0287230428  11.051393508  0.7315144379  2700          2.2439894946 \n"}
+,{"stream_name":"stdout","time":21608.060476261,"data":"0.5137278829  0.5061124694  0.2510660981  0.2307692308  0.7013473054  0.6586826347  0.4993638677  0.4904458599  71.856287425  0.3637746571  40278.861969  107564.69243  1.2227793042  11.051393508  0.8590046460  3000          2.2437323324 \n"}
+,{"stream_name":"stdout","time":22327.566945658,"data":"0.1470408786  0.1320293399  0.1263326226  0.1217948718  0.1661676647  0.1766467066  0.0372137405  0.0471337580  79.041916167  0.3015123278  35038.845531  107804.63142  1.3113996146  11.051393508  1.0098872869  3300          2.2423514064 \n"}
+,{"stream_name":"stdout","time":23043.814671215,"data":"0.6699206833  0.6161369193  0.5303837953  0.5192307692  0.7844311377  0.7574850299  0.7560432570  0.7324840764  86.227544910  0.1612125489  29264.092126  143487.28805  1.5488407407  11.051393508  1.3876281931  3600          2.2306936566 \n"}
+,{"stream_name":"stdout","time":23764.032750177,"data":"0.8108602807  0.7579462103  0.6039445629  0.5940170940  0.9019461078  0.8473053892  0.7948473282  0.7554140127  93.413173652  0.1805434026  26524.677575  153805.38967  0.7802955974  11.051393508  0.5997521940  3900          2.2438369687 \n"}
+,{"stream_name":"stdout","time":24483.04415604,"data":"0.8206223307  0.7897310513  0.6375266525  0.6431623932  0.8847305389  0.8802395210  0.8425572519  0.8471337580  100.59880239  0.2869068015  15712.414502  53061.251770  1.0584929476  11.051393508  0.7715861451  4200          2.2406664530 \n"}
+,{"stream_name":"stdout","time":25203.4417507,"data":"0.6693105552  0.6748166259  0.6082089552  0.6111111111  0.8031437126  0.8083832335  0.7585877863  0.7630573248  107.78443113  0.3011987583  11347.943761  36732.068492  1.0118905292  11.051393508  0.7106917692  4500          2.2443993656 \n"}
+,{"stream_name":"stdout","time":25921.923446657,"data":"0.7522879805  0.7530562347  0.7228144989  0.7222222222  0.8959580838  0.8742514970  0.8543256997  0.8547770701  114.97005988  0.2386595516  12634.572477  50783.033323  0.9521403226  11.051393508  0.7134807695  4800          2.2400156625 \n"}
+,{"stream_name":"stdout","time":26414.97260277,"data":"0.2367297132  0.2347188264  0.2558635394  0.2286324786  0.2844311377  0.2634730539  0.2420483461  0.2420382166  119.76047904  0.2517588374  7888.6125159  27933.375317  1.4480169706  11.051393508  1.1962581424  5000          2.2310423863 \n"}
+,{"stream_name":"stdout","time":26417.231047925,"data":"[exit 0 in 10153.7s]\n"}
+,{"stream_name":"stdout","time":26417.232712334,"data":"{\n"}
+,{"stream_name":"stdout","time":26417.232740737,"data":"  \"status\": \"done\",\n"}
+,{"stream_name":"stdout","time":26417.232748166,"data":"  \"algorithm\": \"GGNMatch\",\n"}
+,{"stream_name":"stdout","time":26417.23275443,"data":"  \"test_env\": 1,\n"}
+,{"stream_name":"stdout","time":26417.232760277,"data":"  \"hparams\": {},\n"}
+,{"stream_name":"stdout","time":26417.2327657,"data":"  \"wall_h\": 2.82,\n"}
+,{"stream_name":"stdout","time":26417.232771315,"data":"  \"checkpoints\": 18,\n"}
+,{"stream_name":"stdout","time":26417.232776232,"data":"  \"last_step\": 5000,\n"}
+,{"stream_name":"stdout","time":26417.232781239,"data":"  \"step_time_s\": 2.2310423862934115,\n"}
+,{"stream_name":"stdout","time":26417.23278682,"data":"  \"mem_gb\": 11.051393508911133,\n"}
+,{"stream_name":"stdout","time":26417.232792543,"data":"  \"test_in_acc\": 0.255863539445629,\n"}
+,{"stream_name":"stdout","time":26417.232797357,"data":"  \"test_out_acc\": 0.22863247863247863,\n"}
+,{"stream_name":"stdout","time":26417.232802216,"data":"  \"train_out_acc_mean\": 0.24674336561953103,\n"}
+,{"stream_name":"stdout","time":26417.232807473,"data":"  \"ggn\": 0.25175883735464594,\n"}
+,{"stream_name":"stdout","time":26417.232812548,"data":"  \"nll\": 1.196258142441511\n"}
+,{"stream_name":"stdout","time":26417.232822796,"data":"}\n"}
+,{"stream_name":"stdout","time":26417.233402589,"data":"\n"}
+,{"stream_name":"stdout","time":26417.233436286,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":26417.233444237,"data":"[  440.3 min,  3.7 h left] ERM_env1  (test env 1 = C(cartoon), estimate 1.59 h)\n"}
+,{"stream_name":"stdout","time":26417.233450268,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":26417.233456751,"data":"$ /usr/bin/python3 -m domainbed.scripts.train --data_dir /tmp/data --dataset PACS --algorithm ERM --test_envs 1 --steps 5001 --checkpoint_freq 300 --skip_model_save --output_dir /kaggle/working/grid/ERM_env1 --hparams '{\"freeze_bn\": true}'\n"}
+,{"stream_name":"stdout","time":26420.663656987,"data":"/usr/local/lib/python3.13/dist-packages/outdated/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools\u003c81.\n"}
+,{"stream_name":"stdout","time":26420.66371114,"data":"  from pkg_resources import parse_version\n"}
+,{"stream_name":"stdout","time":26423.812534093,"data":"Environment:\n"}
+,{"stream_name":"stdout","time":26423.812604171,"data":"\tPython: 3.13.16\n"}
+,{"stream_name":"stdout","time":26423.812727215,"data":"\tPyTorch: 2.11.0+cu130\n"}
+,{"stream_name":"stdout","time":26423.812752559,"data":"\tTorchvision: 0.26.0+cu130\n"}
+,{"stream_name":"stdout","time":26423.81312691,"data":"\tCUDA: 13.0\n"}
+,{"stream_name":"stdout","time":26424.089106581,"data":"\tCUDNN: 92700\n"}
+,{"stream_name":"stdout","time":26424.089151968,"data":"\tNumPy: 2.1.3\n"}
+,{"stream_name":"stdout","time":26424.089169059,"data":"\tPIL: 13.0.0\n"}
+,{"stream_name":"stdout","time":26424.089277048,"data":"Args:\n"}
+,{"stream_name":"stdout","time":26424.089378683,"data":"\talgorithm: ERM\n"}
+,{"stream_name":"stdout","time":26424.089437355,"data":"\tcheckpoint_freq: 300\n"}
+,{"stream_name":"stdout","time":26424.089509708,"data":"\tdata_dir: /tmp/data\n"}
+,{"stream_name":"stdout","time":26424.08963255,"data":"\tdataset: PACS\n"}
+,{"stream_name":"stdout","time":26424.08969436,"data":"\tholdout_fraction: 0.2\n"}
+,{"stream_name":"stdout","time":26424.089743888,"data":"\thparams: {\"freeze_bn\": true}\n"}
+,{"stream_name":"stdout","time":26424.090708879,"data":"\thparams_seed: 0\n"}
+,{"stream_name":"stdout","time":26424.090724414,"data":"\toutput_dir: /kaggle/working/grid/ERM_env1\n"}
+,{"stream_name":"stdout","time":26424.090728967,"data":"\tsave_model_every_checkpoint: False\n"}
+,{"stream_name":"stdout","time":26424.090732998,"data":"\tseed: 0\n"}
+,{"stream_name":"stdout","time":26424.090737093,"data":"\tskip_model_save: True\n"}
+,{"stream_name":"stdout","time":26424.090745411,"data":"\tsteps: 5001\n"}
+,{"stream_name":"stdout","time":26424.09074889,"data":"\ttask: domain_generalization\n"}
+,{"stream_name":"stdout","time":26424.090768592,"data":"\ttest_envs: [1]\n"}
+,{"stream_name":"stdout","time":26424.090773262,"data":"\ttrial_seed: 0\n"}
+,{"stream_name":"stdout","time":26424.090777456,"data":"\tuda_holdout_fraction: 0\n"}
+,{"stream_name":"stdout","time":26424.094877744,"data":"HParams:\n"}
+,{"stream_name":"stdout","time":26424.094964741,"data":"\tbatch_size: 32\n"}
+,{"stream_name":"stdout","time":26424.095032002,"data":"\tclass_balanced: False\n"}
+,{"stream_name":"stdout","time":26424.095124076,"data":"\tdata_augmentation: True\n"}
+,{"stream_name":"stdout","time":26424.095356068,"data":"\tdinov2: False\n"}
+,{"stream_name":"stdout","time":26424.09537229,"data":"\tfreeze_bn: True\n"}
+,{"stream_name":"stdout","time":26424.095512095,"data":"\tlars: False\n"}
+,{"stream_name":"stdout","time":26424.095522442,"data":"\tlinear_steps: 500\n"}
+,{"stream_name":"stdout","time":26424.095653491,"data":"\tlr: 5e-05\n"}
+,{"stream_name":"stdout","time":26424.095726844,"data":"\tnonlinear_classifier: False\n"}
+,{"stream_name":"stdout","time":26424.09579648,"data":"\tresnet18: False\n"}
+,{"stream_name":"stdout","time":26424.095889475,"data":"\tresnet50_augmix: True\n"}
+,{"stream_name":"stdout","time":26424.095949339,"data":"\tresnet_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":26424.096040877,"data":"\tvit: False\n"}
+,{"stream_name":"stdout","time":26424.0961128,"data":"\tvit_attn_tune: False\n"}
+,{"stream_name":"stdout","time":26424.096229475,"data":"\tvit_dropout: 0.0\n"}
+,{"stream_name":"stdout","time":26424.096335861,"data":"\tweight_decay: 0.0\n"}
+,{"stream_name":"stdout","time":26426.210879571,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.\n"}
+,{"stream_name":"stdout","time":26426.210944038,"data":"  warnings.warn(\n"}
+,{"stream_name":"stdout","time":26426.211391038,"data":"/usr/local/lib/python3.13/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.\n"}
+,{"stream_name":"stdout","time":26426.211403611,"data":"  warnings.warn(msg)\n"}
+,{"stream_name":"stdout","time":26432.844442649,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":26481.023220313,"data":"env0_in_acc   env0_out_acc  env1_in_acc   env1_out_acc  env2_in_acc   env2_out_acc  env3_in_acc   env3_out_acc  epoch         loss          mem_gb        step          step_time    \n"}
+,{"stream_name":"stdout","time":26481.02326326,"data":"0.3276388041  0.3056234719  0.2457356077  0.2393162393  0.5441616766  0.5089820359  0.2286895674  0.1974522293  0.0000000000  1.9486752748  7.9105472565  0             1.6658658981 \n"}
+,{"stream_name":"stdout","time":26814.358708552,"data":"0.9841366687  0.9364303178  0.7798507463  0.7927350427  0.9932634731  0.9640718563  0.9723282443  0.9490445860  7.1856287425  0.1562771339  8.1087512970  300           0.9562276196 \n"}
+,{"stream_name":"stdout","time":27150.011658185,"data":"0.9713239780  0.9119804401  0.7585287846  0.7735042735  0.9910179641  0.9790419162  0.9837786260  0.9490445860  14.371257485  0.0547331455  8.1087512970  600           0.9640234121 \n"}
+,{"stream_name":"stdout","time":27485.645298902,"data":"0.9884075656  0.9388753056  0.7915778252  0.8012820513  0.9992514970  0.9820359281  0.9885496183  0.9554140127  21.556886227  0.0349688157  8.1087512970  900           0.9632077638 \n"}
+,{"stream_name":"stdout","time":27821.160788004,"data":"0.9908480781  0.9633251834  0.8166311301  0.8311965812  1.0000000000  0.9880239521  0.9904580153  0.9605095541  28.742514970  0.0310960045  8.1087512970  1200          0.9635802929 \n"}
+,{"stream_name":"stdout","time":28155.867265665,"data":"0.9926784625  0.9315403423  0.8006396588  0.7799145299  0.9985029940  0.9730538922  0.9879134860  0.9490445860  35.928143712  0.0217126996  8.1087512970  1500          0.9604247999 \n"}
+,{"stream_name":"stdout","time":28491.369443207,"data":"0.9926784625  0.9437652812  0.8017057569  0.8076923077  0.9977544910  0.9730538922  0.9920483461  0.9630573248  43.113772455  0.0289822079  8.1087512970  1800          0.9630488197 \n"}
+,{"stream_name":"stdout","time":28826.120568859,"data":"0.9920683344  0.9437652812  0.8336886994  0.8525641026  0.9977544910  0.9640718563  0.9945928753  0.9515923567  50.299401197  0.0258032885  8.1087512970  2100          0.9603468839 \n"}
+,{"stream_name":"stdout","time":29161.318993099,"data":"0.9993898719  0.9486552567  0.7979744136  0.8162393162  0.9992514970  0.9790419162  0.9977735369  0.9579617834  57.485029940  0.0200947783  8.1087512970  2400          0.9625448044 \n"}
+,{"stream_name":"stdout","time":29495.182821487,"data":"0.9975594875  0.9388753056  0.8283582090  0.8547008547  1.0000000000  0.9700598802  0.9958651399  0.9464968153  64.670658682  0.0127756843  8.1087512970  2700          0.9590045285 \n"}
+,{"stream_name":"stdout","time":29830.404609454,"data":"0.9914582062  0.9486552567  0.8176972281  0.8141025641  0.9970059880  0.9700598802  0.9942748092  0.9579617834  71.856287425  0.0122040065  8.1087512970  3000          0.9621547707 \n"}
+,{"stream_name":"stdout","time":30164.816701685,"data":"0.9890176937  0.9437652812  0.7627931770  0.7927350427  0.9985029940  0.9820359281  0.9895038168  0.9503184713  79.041916167  0.0153576557  8.1087512970  3300          0.9596497361 \n"}
+,{"stream_name":"stdout","time":30499.889624524,"data":"0.9981696156  0.9584352078  0.8315565032  0.8547008547  0.9992514970  0.9790419162  0.9917302799  0.9554140127  86.227544910  0.0207050191  8.1087512970  3600          0.9622936177 \n"}
+,{"stream_name":"stdout","time":30833.875212564,"data":"0.9981696156  0.9437652812  0.8475479744  0.8696581197  0.9985029940  0.9790419162  0.9965012723  0.9579617834  93.413173652  0.0189798552  8.1087512970  3900          0.9593710248 \n"}
+,{"stream_name":"stdout","time":31168.994394377,"data":"0.9908480781  0.9388753056  0.8160980810  0.8589743590  0.9940119760  0.9610778443  0.9910941476  0.9426751592  100.59880239  0.0123733689  8.1087512970  4200          0.9620107643 \n"}
+,{"stream_name":"stdout","time":31503.004758498,"data":"0.9981696156  0.9486552567  0.8230277186  0.8226495726  0.9985029940  0.9880239521  0.9984096692  0.9515923567  107.78443113  0.0105440222  8.1087512970  4500          0.9590363240 \n"}
+,{"stream_name":"stdout","time":31838.040792752,"data":"0.9890176937  0.9168704156  0.8224946695  0.8653846154  0.9925149701  0.9520958084  0.9930025445  0.9503184713  114.97005988  0.0129590959  8.1087512970  4800          0.9616302490 \n"}
+,{"stream_name":"stdout","time":32076.314092683,"data":"0.9743746187  0.8850855746  0.8320895522  0.8589743590  0.9977544910  0.9730538922  0.9923664122  0.9503184713  119.76047904  0.0160943017  8.1087512970  5000          0.9585806692 \n"}
+,{"stream_name":"stdout","time":32078.504343863,"data":"[exit 0 in 5661.3s]\n"}
+,{"stream_name":"stdout","time":32078.505685475,"data":"{\n"}
+,{"stream_name":"stdout","time":32078.505706728,"data":"  \"status\": \"done\",\n"}
+,{"stream_name":"stdout","time":32078.50571255,"data":"  \"algorithm\": \"ERM\",\n"}
+,{"stream_name":"stdout","time":32078.505717768,"data":"  \"test_env\": 1,\n"}
+,{"stream_name":"stdout","time":32078.505723459,"data":"  \"hparams\": {\n"}
+,{"stream_name":"stdout","time":32078.505729038,"data":"    \"freeze_bn\": true\n"}
+,{"stream_name":"stdout","time":32078.505734485,"data":"  },\n"}
+,{"stream_name":"stdout","time":32078.505740118,"data":"  \"wall_h\": 1.573,\n"}
+,{"stream_name":"stdout","time":32078.505745897,"data":"  \"checkpoints\": 18,\n"}
+,{"stream_name":"stdout","time":32078.50575208,"data":"  \"last_step\": 5000,\n"}
+,{"stream_name":"stdout","time":32078.505757582,"data":"  \"step_time_s\": 0.9585806691646576,\n"}
+,{"stream_name":"stdout","time":32078.505763112,"data":"  \"mem_gb\": 8.10875129699707,\n"}
+,{"stream_name":"stdout","time":32078.505768951,"data":"  \"test_in_acc\": 0.832089552238806,\n"}
+,{"stream_name":"stdout","time":32078.505775855,"data":"  \"test_out_acc\": 0.8589743589743589,\n"}
+,{"stream_name":"stdout","time":32078.505781995,"data":"  \"train_out_acc_mean\": 0.9361526460417585,\n"}
+,{"stream_name":"stdout","time":32078.505787865,"data":"  \"ggn\": null,\n"}
+,{"stream_name":"stdout","time":32078.505792806,"data":"  \"nll\": null\n"}
+,{"stream_name":"stdout","time":32078.505797859,"data":"}\n"}
+,{"stream_name":"stdout","time":32078.506375498,"data":"\n"}
+,{"stream_name":"stdout","time":32078.50640433,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":32078.506411828,"data":"[  534.6 min,  2.1 h left] Per-run summary\n"}
+,{"stream_name":"stdout","time":32078.506417605,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":32078.506423681,"data":"run              status          wall_h  step_s  mem_gb  test_in  test_out  train_out\n"}
+,{"stream_name":"stdout","time":32078.506429887,"data":"-------------------------------------------------------------------------------------\n"}
+,{"stream_name":"stdout","time":32078.506435692,"data":"GGNMatch_env0    done              2.93   2.300   11.05   0.4655    0.4914     0.7519\n"}
+,{"stream_name":"stdout","time":32078.506492514,"data":"ERM_env0         done              1.59   0.954    8.11   0.8365    0.8142     0.9593\n"}
+,{"stream_name":"stdout","time":32078.506512371,"data":"GGNMatch_env1    done              2.82   2.231   11.05   0.2559    0.2286     0.2467\n"}
+,{"stream_name":"stdout","time":32078.506518455,"data":"ERM_env1         done              1.57   0.959    8.11   0.8321    0.8590     0.9362\n"}
+,{"stream_name":"stdout","time":32078.506689055,"data":"\n"}
+,{"stream_name":"stdout","time":32078.506721184,"data":"GGNMatch: mean test-domain accuracy over 2 env(s) = 0.3607  [0.4655, 0.2559]\n"}
+,{"stream_name":"stdout","time":32078.506759954,"data":"\n"}
+,{"stream_name":"stdout","time":32078.506766769,"data":"ERM: mean test-domain accuracy over 2 env(s) = 0.8343  [0.8365, 0.8321]\n"}
+,{"stream_name":"stdout","time":32078.507222522,"data":"\n"}
+,{"stream_name":"stdout","time":32078.507240604,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":32078.507246081,"data":"[  534.6 min,  2.1 h left] collect_results (DomainBed model selection)\n"}
+,{"stream_name":"stdout","time":32078.507250957,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":32078.507255441,"data":"$ /usr/bin/python3 -m domainbed.scripts.collect_results --input_dir /kaggle/working/grid\n"}
+,{"stream_name":"stdout","time":32081.857685705,"data":"/usr/local/lib/python3.13/dist-packages/outdated/__init__.py:36: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools\u003c81.\n"}
+,{"stream_name":"stdout","time":32081.857751202,"data":"  from pkg_resources import parse_version\n"}
+,{"stream_name":"stdout","time":32084.810792812,"data":"\r  0%|                                                     | 0/5 [00:00\u003c?, ?it/s]\r                                                                                \rTotal records: 72\n"}
+,{"stream_name":"stdout","time":32084.813558984,"data":"\n"}
+,{"stream_name":"stdout","time":32084.813874014,"data":"-------- Dataset: PACS, model selection method: training-domain validation set\n"}
+,{"stream_name":"stdout","time":32084.814126923,"data":"Algorithm             A                     C                     P                     S                     Avg                  \n"}
+,{"stream_name":"stdout","time":32084.814623623,"data":"ERM                   85.1 +/- 0.0          81.7 +/- 0.0          X                     X                     X                    \n"}
+,{"stream_name":"stdout","time":32084.814981075,"data":"GGNMatch              88.5 +/- 0.0          81.7 +/- 0.0          X                     X                     X                    \n"}
+,{"stream_name":"stdout","time":32084.815638177,"data":"\n"}
+,{"stream_name":"stdout","time":32084.816134434,"data":"-------- Averages, model selection method: training-domain validation set\n"}
+,{"stream_name":"stdout","time":32084.816415993,"data":"Algorithm                  PACS                       Avg                       \n"}
+,{"stream_name":"stdout","time":32084.816668078,"data":"ERM                        83.4 +/- 0.0               83.4                      \n"}
+,{"stream_name":"stdout","time":32084.817037534,"data":"GGNMatch                   85.1 +/- 0.0               85.1                      \n"}
+,{"stream_name":"stdout","time":32084.819095406,"data":"\n"}
+,{"stream_name":"stdout","time":32084.81947913,"data":"-------- Dataset: PACS, model selection method: leave-one-domain-out cross-validation\n"}
+,{"stream_name":"stdout","time":32084.819711146,"data":"Algorithm             A                     C                     P                     S                     Avg                  \n"}
+,{"stream_name":"stdout","time":32084.82011985,"data":"ERM                   X                     X                     X                     X                     X                    \n"}
+,{"stream_name":"stdout","time":32084.820322043,"data":"GGNMatch              X                     X                     X                     X                     X                    \n"}
+,{"stream_name":"stdout","time":32084.820735106,"data":"\n"}
+,{"stream_name":"stdout","time":32084.82122677,"data":"-------- Averages, model selection method: leave-one-domain-out cross-validation\n"}
+,{"stream_name":"stdout","time":32084.821778868,"data":"Algorithm                  PACS                       Avg                       \n"}
+,{"stream_name":"stdout","time":32084.822066504,"data":"ERM                        X                          X                         \n"}
+,{"stream_name":"stdout","time":32084.82248765,"data":"GGNMatch                   X                          X                         \n"}
+,{"stream_name":"stdout","time":32084.823893229,"data":"\n"}
+,{"stream_name":"stdout","time":32084.824295942,"data":"-------- Dataset: PACS, model selection method: test-domain validation set (oracle)\n"}
+,{"stream_name":"stdout","time":32084.824690418,"data":"Algorithm             A                     C                     P                     S                     Avg                  \n"}
+,{"stream_name":"stdout","time":32084.824994093,"data":"ERM                   83.6 +/- 0.0          83.2 +/- 0.0          X                     X                     X                    \n"}
+,{"stream_name":"stdout","time":32084.825438582,"data":"GGNMatch              46.6 +/- 0.0          25.6 +/- 0.0          X                     X                     X                    \n"}
+,{"stream_name":"stdout","time":32084.826142216,"data":"\n"}
+,{"stream_name":"stdout","time":32084.826431063,"data":"-------- Averages, model selection method: test-domain validation set (oracle)\n"}
+,{"stream_name":"stdout","time":32084.826944575,"data":"Algorithm                  PACS                       Avg                       \n"}
+,{"stream_name":"stdout","time":32084.827449361,"data":"ERM                        83.4 +/- 0.0               83.4                      \n"}
+,{"stream_name":"stdout","time":32084.827737341,"data":"GGNMatch                   36.1 +/- 0.0               36.1                      \n"}
+,{"stream_name":"stdout","time":32086.202933559,"data":"[exit 0 in 7.7s]\n"}
+,{"stream_name":"stdout","time":32086.202982217,"data":"\n"}
+,{"stream_name":"stdout","time":32086.202988265,"data":"==============================================================================\n"}
+,{"stream_name":"stdout","time":32086.202994876,"data":"[  534.8 min,  2.1 h left] GRID FINISHED (8.91 h)\n"}
+,{"stream_name":"stdout","time":32086.202999595,"data":"==============================================================================\n"}
+,{"stream_name":"stderr","time":32088.724163798,"data":"/usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":32088.724211966,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":32089.024779709,"data":"/usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":32089.024809826,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":32089.967650056,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":32091.130931033,"data":"[NbConvertApp] Writing 331210 bytes to __results__.html\n"}
+]

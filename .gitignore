@@ -2,4 +2,5 @@ __pycache__
 domainbed/facebook.py
 
 domainbed/data/*
-train_output/*
+train_output/*results_kaggle/*/*/*/out.txt
+results_kaggle/*/*/*/err.txt
