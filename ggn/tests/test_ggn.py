@@ -6,6 +6,7 @@ import math
 import unittest
 
 import torch
+import torch.nn as nn
 
 from domainbed import hparams_registry
 from ggn import curvature
@@ -106,6 +107,65 @@ class TestGram(unittest.TestCase):
                         self.assertTrue(g_o is None or g_o.abs().max() == 0)
                         continue
                     torch.testing.assert_close(g_o, g_r, rtol=1e-6, atol=1e-10)
+
+
+class TestLayerGramRoutes(unittest.TestCase):
+    """layer_gram has two exact routes for weights shared over positions."""
+
+    def _reference(self, module, inp, delta):
+        """Explicit per-sample gradients, row a * B + n for sketch a, sample n."""
+        params = [p for p in (module.weight, module.bias) if p is not None]
+        k, B = delta.shape[:2]
+        rows = []
+        for a in range(k):
+            for n in range(B):
+                out = module(inp[n:n + 1])
+                g = torch.autograd.grad(out, params,
+                                        grad_outputs=delta[a, n:n + 1])
+                rows.append(torch.cat([t.reshape(-1) for t in g]))
+        return torch.stack(rows)
+
+    def test_routes_match_explicit_gradients(self):
+        torch.manual_seed(0)
+        cases = {
+            "conv3x3_bias": nn.Conv2d(3, 4, 3, padding=1, bias=True),
+            "conv3x3_stride2_nobias": nn.Conv2d(3, 4, 3, stride=2, bias=False),
+            "conv1x1_bias": nn.Conv2d(3, 5, 1, bias=True),
+            "conv_dilated": nn.Conv2d(3, 4, 3, dilation=2, bias=True),
+            "token_linear": nn.Linear(3, 4),
+        }
+        B, k = 3, 2
+        for name, module in cases.items():
+            with self.subTest(case=name):
+                module = module.double()
+                inp = (torch.randn(B, 3, 7, 7, dtype=torch.float64)
+                       if isinstance(module, nn.Conv2d)
+                       else torch.randn(B, 6, 3, dtype=torch.float64))
+                out = module(inp)
+                delta = torch.randn((k,) + out.shape, dtype=torch.float64)
+                V = self._reference(module, inp, delta)
+                ref = V @ V.T
+                for method in ("materialise", "positions"):
+                    K = curvature.layer_gram(module, inp, delta, method=method)
+                    torch.testing.assert_close(K, ref, rtol=1e-10, atol=1e-10,
+                                               msg=f"{name}/{method}")
+
+    def test_auto_route_picks_the_smaller_footprint(self):
+        # Wide layer, few positions -> positions; narrow layer, many positions
+        # -> materialise. Both must still give the same Gram.
+        torch.manual_seed(1)
+        wide = nn.Conv2d(64, 256, 1, bias=False).double()      # T = 16
+        narrow = nn.Conv2d(2, 3, 1, bias=False).double()        # T = 196
+        for module, inp_shape in ((wide, (2, 64, 4, 4)),
+                                  (narrow, (2, 2, 14, 14))):
+            inp = torch.randn(*inp_shape, dtype=torch.float64)
+            out = module(inp)
+            delta = torch.randn((1,) + out.shape, dtype=torch.float64)
+            auto = curvature.layer_gram(module, inp, delta)
+            for method in ("materialise", "positions"):
+                torch.testing.assert_close(
+                    auto, curvature.layer_gram(module, inp, delta, method=method),
+                    rtol=1e-10, atol=1e-10)
 
 
 class TestEstimators(unittest.TestCase):

@@ -64,11 +64,43 @@ def output_sketches(logits, y, curvature="ggn", sketch="rademacher",
     return [sqrt_p * xi - p * (sqrt_p * xi).sum(1, keepdim=True) for xi in xis]
 
 
-def layer_gram(module, inp, delta):
+def _materialised_gram(module, A, D):
+    """K = G G^T with the per-sample gradients G[n] = sum_t delta_{n,t} a_{n,t}^T
+    formed explicitly. Footprint: k B d_out d_in."""
+    k, B = D.shape[:2]
+    G = torch.einsum("kbto,bti->kboi", D, A).reshape(k * B, -1)
+    if module.bias is not None:
+        G = torch.cat([G, D.sum(2).reshape(k * B, -1)], dim=1)
+    return G @ G.T
+
+
+def _position_gram(module, A, D):
+    """The same K, from position-wise inner products instead.
+
+    <g_n, g_m> = sum_{t,s} (delta_{n,t} . delta_{m,s}) (a_{n,t} . a_{m,s}),
+    and the bias adds sum_{t,s} delta_{n,t} . delta_{m,s}, i.e. the same
+    contraction with a_n . a_m replaced by 1. No per-sample gradient is ever
+    formed, so the footprint is O((k B T)^2 + (B T)^2) instead of
+    O(k B d_out d_in). This is what fits all of ResNet-50's layer4 (wide
+    layers, few positions) into a 16 GB GPU; it costs more FLOPs, so
+    layer_gram picks whichever route stores less.
+    """
+    k, B, T = D.shape[:3]
+    Aflat = A.reshape(B * T, -1)
+    Ad = (Aflat @ Aflat.T).reshape(B, T, B, T)
+    if module.bias is not None:
+        Ad = Ad + 1
+    Dflat = D.reshape(k * B * T, -1)
+    Dd = (Dflat @ Dflat.T).reshape(k, B, T, k, B, T)
+    return torch.einsum("abtcds,btds->abcd", Dd, Ad).reshape(k * B, k * B)
+
+
+def layer_gram(module, inp, delta, method=None):
     """Gram matrix of per-sample gradients of one Linear or Conv2d layer.
 
-    inp   : (B, ...) layer input captured in the forward pass.
-    delta : (k, B, ...) gradient of u^T f w.r.t. the layer output, per sketch.
+    inp    : (B, ...) layer input captured in the forward pass.
+    delta  : (k, B, ...) gradient of u^T f w.r.t. the layer output, per sketch.
+    method : "materialise", "positions", or None to pick the cheaper one.
     Returns K of shape (k*B, k*B): inner products of the per-sample gradients
     of u_{a,n}^T f(x_n) w.r.t. the layer's weight (and bias).
     """
@@ -98,12 +130,20 @@ def layer_gram(module, inp, delta):
         Dk = D[:, :, 0].reshape(k * B, -1)
         return (Dk @ Dk.T) * Ka.repeat(k, k)
 
-    # Weights shared over T positions (conv, token-wise linear): materialise
-    # the per-sample gradients sum_t delta_t a_t^T.
-    G = torch.einsum("kbto,bti->kboi", D, A).reshape(k * B, -1)
-    if module.bias is not None:
-        G = torch.cat([G, D.sum(2).reshape(k * B, -1)], dim=1)
-    return G @ G.T
+    # Weights shared over T positions (conv, token-wise linear). Both routes
+    # below are exact; they differ only in what has to be stored for the
+    # (double) backward pass, which is what decides whether the last block of
+    # a ResNet-50 fits in GPU memory.
+    T, d_out, d_in = A.shape[1], D.shape[3], A.shape[2]
+    if method is None:
+        method = ("positions"
+                  if (k * B * T) ** 2 + (B * T) ** 2 < k * B * d_out * d_in
+                  else "materialise")
+    if method == "positions":
+        return _position_gram(module, A, D)
+    if method == "materialise":
+        return _materialised_gram(module, A, D)
+    raise ValueError(f"unknown layer_gram method {method!r}")
 
 
 def domain_inner_products(Q, n_per_domain, k, unbiased=True):

@@ -1,0 +1,15 @@
+{
+  "id": "ducle19/ggn-pacs-smoke",
+  "title": "ggn-pacs-smoke",
+  "code_file": "ggn_smoke.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": ["ma3ple/pacs-dataset"],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}
