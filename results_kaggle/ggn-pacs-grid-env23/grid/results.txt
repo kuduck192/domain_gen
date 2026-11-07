@@ -1,0 +1,31 @@
+Total records: 72
+
+-------- Dataset: PACS, model selection method: training-domain validation set
+Algorithm             A                     C                     P                     S                     Avg                  
+ERM                   X                     X                     97.2 +/- 0.0          83.0 +/- 0.0          X                    
+GGNMatch              X                     X                     98.0 +/- 0.0          72.0 +/- 0.0          X                    
+
+-------- Averages, model selection method: training-domain validation set
+Algorithm                  PACS                       Avg                       
+ERM                        90.1 +/- 0.0               90.1                      
+GGNMatch                   85.0 +/- 0.0               85.0                      
+
+-------- Dataset: PACS, model selection method: leave-one-domain-out cross-validation
+Algorithm             A                     C                     P                     S                     Avg                  
+ERM                   X                     X                     X                     X                     X                    
+GGNMatch              X                     X                     X                     X                     X                    
+
+-------- Averages, model selection method: leave-one-domain-out cross-validation
+Algorithm                  PACS                       Avg                       
+ERM                        X                          X                         
+GGNMatch                   X                          X                         
+
+-------- Dataset: PACS, model selection method: test-domain validation set (oracle)
+Algorithm             A                     C                     P                     S                     Avg                  
+ERM                   X                     X                     95.7 +/- 0.0          82.4 +/- 0.0          X                    
+GGNMatch              X                     X                     53.7 +/- 0.0          20.4 +/- 0.0          X                    
+
+-------- Averages, model selection method: test-domain validation set (oracle)
+Algorithm                  PACS                       Avg                       
+ERM                        89.0 +/- 0.0               89.0                      
+GGNMatch                   37.0 +/- 0.0               37.0                      
