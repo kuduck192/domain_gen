@@ -14,5 +14,9 @@ def define_hparams(_hparam, dataset):
     _hparam("ggn_norm", "fro", lambda r: "fro")               # fro | spectral
     _hparam("ggn_blocks", "full", lambda r: "full")           # full | diag
     _hparam("ggn_normalize", True, lambda r: True)
-    _hparam("ggn_scale_ema", 0.95, lambda r: 0.95)
+    # Denominator of the normalised penalty: "step" (this step's own detached
+    # scale, so the penalty cannot be lowered by inflating the curvature) or
+    # "ema" (the original lagging EMA, which can).
+    _hparam("ggn_scale_mode", "step", lambda r: "step")
+    _hparam("ggn_scale_ema", 0.95, lambda r: 0.95)   # only used by mode "ema"
     _hparam("ggn_grad_lambda", 0.0, lambda r: 0.0)            # optional gradient matching

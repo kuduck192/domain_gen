@@ -109,6 +109,41 @@ class TestGram(unittest.TestCase):
                     torch.testing.assert_close(g_o, g_r, rtol=1e-6, atol=1e-10)
 
 
+class TestScaleNormalisation(unittest.TestCase):
+    """The normalised penalty must not be lowered by inflating the curvature."""
+
+    def _normalised(self, mode, factors):
+        """Feed a sequence of curvature scales c^2 (with pen = c^2) through
+        _normalize, as a run whose curvature grows by c does."""
+        alg = make_alg(ggn_scale_mode=mode)
+        out = []
+        for c in factors:
+            pen = torch.tensor(c ** 2, dtype=torch.float64)
+            out.append(float(alg._normalize(pen, pen.clone(), slot=0)))
+        return out
+
+    def test_step_mode_is_scale_invariant(self):
+        # pen and scale both carry c^2, so the ratio is 1 at every step.
+        for v in self._normalised("step", [1.0, 1.0, 10.0, 100.0, 1000.0]):
+            self.assertAlmostEqual(v, 1.0, places=9)
+
+    def test_ema_mode_rewards_growing_curvature(self):
+        # The lagging EMA makes the same penalty look smaller right after the
+        # scale jumps, which is the incentive the PACS runs exploited.
+        grown = self._normalised("ema", [1.0, 1.0, 1.0, 1000.0])
+        self.assertAlmostEqual(grown[0], 1.0, places=9)
+        self.assertGreater(grown[-1], 1.5)
+
+    def test_disabled_normalisation_passes_the_penalty_through(self):
+        alg = make_alg(ggn_normalize=False)
+        pen = torch.tensor(7.0, dtype=torch.float64)
+        self.assertEqual(float(alg._normalize(pen, pen.clone(), slot=0)), 7.0)
+
+    def test_unknown_mode_is_rejected(self):
+        with self.assertRaises(ValueError):
+            make_alg(ggn_scale_mode="lagging")
+
+
 class TestLayerGramRoutes(unittest.TestCase):
     """layer_gram has two exact routes for weights shared over positions."""
 

@@ -52,6 +52,9 @@ class GGNMatch(nn.Module):
             raise ValueError(f"unknown ggn_blocks {self.hparams['ggn_blocks']!r}")
         if self.hparams["ggn_norm"] == "spectral" and self.hparams["ggn_blocks"] != "full":
             raise ValueError("ggn_norm='spectral' requires ggn_blocks='full'")
+        if self.hparams["ggn_scale_mode"] not in ("step", "ema"):
+            raise ValueError(
+                f"unknown ggn_scale_mode {self.hparams['ggn_scale_mode']!r}")
 
         # The last `ggn_num_layers` Linear/Conv2d modules, in registration order.
         # For ResNet-50: 1 = head, 4 = head + last bottleneck, 11 = head + layer4.
@@ -150,14 +153,23 @@ class GGNMatch(nn.Module):
         return out
 
     def _normalize(self, pen, scale, slot):
+        """Divide the penalty by a detached curvature scale.
+
+        ggn_scale_mode="step" uses this step's own scale, which makes the
+        penalty exactly invariant under G_i -> c G_i: inflating the overall
+        curvature buys nothing. "ema" uses the debiased EMA, which lags, so
+        growing the scale lowers the penalty on the following steps -- on PACS
+        that is what the optimiser did, and training collapsed.
+        """
         if not self.hparams["ggn_normalize"]:
             return pen
+        detached = scale.detach().clamp_min(0)
         with torch.no_grad():
             beta = float(self.hparams["ggn_scale_ema"])
-            self.scale_ema[slot] = (beta * self.scale_ema[slot]
-                                    + (1 - beta) * scale.detach().clamp_min(0))
+            self.scale_ema[slot] = beta * self.scale_ema[slot] + (1 - beta) * detached
             self.scale_updates[slot] += 1
-            denom = self.scale_ema[slot] / (1 - beta ** self.scale_updates[slot])
+            ema = self.scale_ema[slot] / (1 - beta ** self.scale_updates[slot])
+        denom = detached if self.hparams["ggn_scale_mode"] == "step" else ema
         return pen / denom.clamp_min(1e-12)
 
     def update(self, minibatches, unlabeled=None):

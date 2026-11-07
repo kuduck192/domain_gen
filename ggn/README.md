@@ -10,8 +10,13 @@ selected layers.
 - For softmax cross-entropy, the GGN equals the true Fisher.
 - For ReLU networks with frozen BatchNorm, its layer-diagonal blocks equal
   those of the Hessian.
-- The normalizer is detached, so it does not reward changing the overall
-  curvature.
+- The normalizer is detached and, with `ggn_scale_mode=step`, taken from the
+  same step, so the penalty is exactly invariant under G_i -> c G_i and cannot
+  be lowered by inflating the overall curvature. The original `ema` mode lags
+  behind: growing the scale does lower the penalty on the following steps. On
+  PACS at `ggn_lambda=1` the optimiser exploited exactly that -- mean_i ||G_i||_F^2
+  grew 10-150x within 300 steps of the penalty switching on and training
+  collapsed (see `results_kaggle/`).
 
 ## How it is computed
 
@@ -64,5 +69,7 @@ For a fair comparison, run the baselines with the same frozen BatchNorm:
 | `ggn_num_sketch` | 1 | sketches per sample |
 | `ggn_norm` | `fro` | `fro` (unbiased) or `spectral` (plug-in) |
 | `ggn_blocks` | `full` | `full` (with cross-layer blocks) or `diag` (per layer) |
-| `ggn_normalize` | True | divide by a detached EMA of mean_i ‖G_i‖²_F |
+| `ggn_normalize` | True | divide the penalty by a detached curvature scale |
+| `ggn_scale_mode` | `step` | `step` (this step's own mean_i ‖G_i‖²_F) or `ema` (lagging EMA, the original) |
+| `ggn_scale_ema` | 0.95 | EMA decay, used by `ggn_scale_mode=ema` only |
 | `ggn_grad_lambda` | 0.0 | optional extra term matching per-domain mean gradients |
