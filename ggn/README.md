@@ -79,3 +79,7 @@ For a fair comparison, run the baselines with the same frozen BatchNorm:
 | `ggn_scale_mode` | `step` | `step` (this step's own mean_i ‖G_i‖²_F) or `ema` (lagging EMA, the original) |
 | `ggn_scale_ema` | 0.95 | EMA decay, used by `ggn_scale_mode=ema` only |
 | `ggn_grad_lambda` | 0.0 | optional extra term matching per-domain mean gradients |
+| `ggn_log_grad_every` | 0 | every N steps (0 = off) log `gn_nll`, `gn_pen` (= ‖∇ of λ·penalty‖), `grad_ratio`, `grad_cos`, also during warm-up; costs one double backward per logged step |
+
+Every measured step also logs `ggn_sq` and `ggn_neg`; their checkpoint means give
+the spread (`ggn_sq − ggn²`) and the fraction of negative estimates of the penalty.

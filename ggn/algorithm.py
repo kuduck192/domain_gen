@@ -186,24 +186,32 @@ class GGNMatch(nn.Module):
         step = int(self.update_count.item())
         anneal = int(self.hparams["ggn_anneal_iters"])
         active = step >= anneal
-        measure = active or step % self.LOG_EVERY == 0
+        every = int(self.hparams["ggn_log_grad_every"])
+        log_grads = every > 0 and step % every == 0
+        measure = active or log_grads or step % self.LOG_EVERY == 0
 
         if measure:
             logits, captured = self.forward_with_capture(all_x)
         else:
             logits = self.network(all_x)
         nll = F.cross_entropy(logits, all_y)
-        objective = nll
         logs = {"nll": nll.item()}
 
+        penalty = None
         if measure:
+            # During warm-up the penalty is only measured; with log_grads its
+            # graph is kept so that its gradient can be measured too.
             terms = self.penalties(logits, all_y, captured, n_per_domain,
-                                   create_graph=active)
+                                   create_graph=active or log_grads)
             logs.update({key: val.item() for key, val in terms.items()})
-            if active:
-                objective = objective + self.hparams["ggn_lambda"] * terms["ggn"]
-                if "grad" in terms:
-                    objective = objective + self.hparams["ggn_grad_lambda"] * terms["grad"]
+            # train.py averages every logged value over a checkpoint window, so
+            # these give the spread and the sign flips of the estimate.
+            logs["ggn_sq"] = logs["ggn"] ** 2
+            logs["ggn_neg"] = float(logs["ggn_raw"] < 0)
+            penalty = self.hparams["ggn_lambda"] * terms["ggn"]
+            if "grad" in terms:
+                penalty = penalty + self.hparams["ggn_grad_lambda"] * terms["grad"]
+        objective = nll + penalty if active else nll
 
         if active and step == anneal and anneal != 0:
             # As in Fishr / IRM / V-REx: reset Adam when the penalty switches on.
@@ -211,10 +219,37 @@ class GGNMatch(nn.Module):
         self.update_count += 1
 
         self.optimizer.zero_grad()
-        objective.backward()
+        if log_grads:
+            # Take the two gradients separately, log how they compare, and step
+            # on their sum: the same update as objective.backward().
+            params = [p for p in self.network.parameters() if p.requires_grad]
+            g_nll = torch.autograd.grad(nll, params, retain_graph=True,
+                                        allow_unused=True)
+            g_pen = torch.autograd.grad(penalty, params, allow_unused=True)
+            logs.update(self._gradient_stats(params, g_nll, g_pen))
+            for p, gn, gp in zip(params, g_nll, g_pen):
+                parts = [g for g in (gn, gp if active else None) if g is not None]
+                p.grad = sum(parts) if parts else None
+        else:
+            objective.backward()
         self.optimizer.step()
         logs["loss"] = objective.item()
         return logs
+
+    @staticmethod
+    def _gradient_stats(params, g_nll, g_pen):
+        """Norms of the NLL gradient and of the weighted penalty's gradient
+        (what it adds to the update once active), their ratio and cosine."""
+        fill = lambda gs: [torch.zeros_like(p) if g is None else g
+                           for p, g in zip(params, gs)]
+        g_nll, g_pen = fill(g_nll), fill(g_pen)
+        n_nll = torch.sqrt(sum(g.pow(2).sum() for g in g_nll))
+        n_pen = torch.sqrt(sum(g.pow(2).sum() for g in g_pen))
+        dot = sum((a * b).sum() for a, b in zip(g_nll, g_pen))
+        tiny = torch.finfo(n_nll.dtype).tiny
+        return {"gn_nll": n_nll.item(), "gn_pen": n_pen.item(),
+                "grad_ratio": (n_pen / n_nll.clamp_min(tiny)).item(),
+                "grad_cos": (dot / (n_nll * n_pen).clamp_min(tiny)).item()}
 
     def predict(self, x):
         return self.network(x)

@@ -7,6 +7,7 @@ import unittest
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 from domainbed import hparams_registry
 from ggn import curvature
@@ -296,6 +297,72 @@ class TestUpdate(unittest.TestCase):
                 self.assertEqual(int(alg.update_count.item()), 3)
                 alg.eval()
                 self.assertEqual(tuple(alg.predict(minibatches[0][0]).shape), (4, C))
+
+
+class TestGradientLogging(unittest.TestCase):
+    """ggn_log_grad_every only measures: it must not change the update."""
+
+    N_PER_DOMAIN = [4, 4, 4]
+
+    def _minibatches(self):
+        return [make_batch([n], seed=20 + d)
+                for d, n in enumerate(self.N_PER_DOMAIN)]
+
+    def _run(self, log_every, anneal, steps):
+        alg = make_alg(ggn_log_grad_every=log_every, ggn_anneal_iters=anneal)
+        minibatches = self._minibatches()
+        logs = []
+        for s in range(steps):
+            torch.manual_seed(100 + s)  # the same sketches in every run
+            logs.append(alg.update(minibatches))
+        return alg, logs
+
+    def test_update_is_unchanged_by_logging(self):
+        for anneal in (0, 2):  # penalty on throughout / switching on mid-way
+            with self.subTest(anneal=anneal):
+                plain, logs_plain = self._run(0, anneal, steps=4)
+                logged, logs_logged = self._run(1, anneal, steps=4)
+                for a, b in zip(plain.network.parameters(),
+                                logged.network.parameters()):
+                    torch.testing.assert_close(a, b, rtol=1e-9, atol=1e-12)
+                self.assertFalse(any("grad_ratio" in l for l in logs_plain))
+                for l in logs_logged:
+                    self.assertAlmostEqual(l["grad_ratio"], l["gn_pen"] / l["gn_nll"],
+                                           delta=1e-9 * l["grad_ratio"])
+                    self.assertLessEqual(abs(l["grad_cos"]), 1 + 1e-9)
+                    self.assertAlmostEqual(l["ggn_sq"], l["ggn"] ** 2, places=12)
+                    self.assertEqual(l["ggn_neg"], float(l["ggn_raw"] < 0))
+
+    def test_logged_norms_match_direct_gradients(self):
+        lam = 0.3
+        alg = make_alg(ggn_log_grad_every=1, ggn_anneal_iters=0, ggn_lambda=lam)
+        ref = make_alg(ggn_anneal_iters=0, ggn_lambda=lam)  # same initial weights
+        minibatches = self._minibatches()
+        torch.manual_seed(7)
+        logs = alg.update(minibatches)
+
+        x = torch.cat([x for x, _ in minibatches])
+        y = torch.cat([y for _, y in minibatches])
+        torch.manual_seed(7)
+        logits, captured = ref.forward_with_capture(x)
+        nll = F.cross_entropy(logits, y)
+        pen = lam * ref.penalties(logits, y, captured, self.N_PER_DOMAIN,
+                                  create_graph=True)["ggn"]
+        params = list(ref.network.parameters())
+
+        def flat(grads):
+            return torch.cat([(torch.zeros_like(p) if g is None else g).reshape(-1)
+                              for p, g in zip(params, grads)])
+
+        g_nll = flat(torch.autograd.grad(nll, params, retain_graph=True,
+                                         allow_unused=True))
+        g_pen = flat(torch.autograd.grad(pen, params, allow_unused=True))
+        self.assertGreater(g_pen.norm().item(), 0)
+        for key, ref_val in (("gn_nll", g_nll.norm()), ("gn_pen", g_pen.norm())):
+            self.assertAlmostEqual(logs[key], ref_val.item(),
+                                   delta=1e-9 * ref_val.item(), msg=key)
+        cos = (g_nll @ g_pen / (g_nll.norm() * g_pen.norm())).item()
+        self.assertAlmostEqual(logs["grad_cos"], cos, places=9)
 
 
 if __name__ == "__main__":
