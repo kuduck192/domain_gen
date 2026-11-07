@@ -156,10 +156,15 @@ class GGNMatch(nn.Module):
         """Divide the penalty by a detached curvature scale.
 
         ggn_scale_mode="step" uses this step's own scale, which makes the
-        penalty exactly invariant under G_i -> c G_i: inflating the overall
-        curvature buys nothing. "ema" uses the debiased EMA, which lags, so
-        growing the scale lowers the penalty on the following steps -- on PACS
-        that is what the optimiser did, and training collapsed.
+        penalty's value exactly invariant under G_i -> c G_i. "ema" uses the
+        debiased EMA, which lags: after the scale changes, the normalised
+        penalty over- or undershoots until the EMA catches up. Either way the
+        denominator is detached, so it only rescales the penalty's gradient
+        (an effective lambda); it adds no gradient of its own.
+
+        On PACS at lambda=1 both modes collapse once the penalty switches on
+        (results_a5000/ggn_verify_1107), so the collapse is not caused by the
+        choice of denominator.
         """
         if not self.hparams["ggn_normalize"]:
             return pen

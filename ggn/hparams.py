@@ -15,8 +15,9 @@ def define_hparams(_hparam, dataset):
     _hparam("ggn_blocks", "full", lambda r: "full")           # full | diag
     _hparam("ggn_normalize", True, lambda r: True)
     # Denominator of the normalised penalty: "step" (this step's own detached
-    # scale, so the penalty cannot be lowered by inflating the curvature) or
-    # "ema" (the original lagging EMA, which can).
+    # scale, so its value is invariant under G_i -> c G_i) or "ema" (the
+    # original lagging EMA). Both are detached and differ only in the
+    # effective weight; neither prevents the collapse seen on PACS at lambda=1.
     _hparam("ggn_scale_mode", "step", lambda r: "step")
     _hparam("ggn_scale_ema", 0.95, lambda r: 0.95)   # only used by mode "ema"
     _hparam("ggn_grad_lambda", 0.0, lambda r: 0.0)            # optional gradient matching

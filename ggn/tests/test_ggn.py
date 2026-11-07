@@ -110,7 +110,7 @@ class TestGram(unittest.TestCase):
 
 
 class TestScaleNormalisation(unittest.TestCase):
-    """The normalised penalty must not be lowered by inflating the curvature."""
+    """How the two denominators respond to a change in the curvature scale."""
 
     def _normalised(self, mode, factors):
         """Feed a sequence of curvature scales c^2 (with pen = c^2) through
@@ -127,9 +127,10 @@ class TestScaleNormalisation(unittest.TestCase):
         for v in self._normalised("step", [1.0, 1.0, 10.0, 100.0, 1000.0]):
             self.assertAlmostEqual(v, 1.0, places=9)
 
-    def test_ema_mode_rewards_growing_curvature(self):
-        # The lagging EMA makes the same penalty look smaller right after the
-        # scale jumps, which is the incentive the PACS runs exploited.
+    def test_ema_mode_overshoots_after_the_scale_jumps(self):
+        # The lagging EMA is not scale-invariant: right after the curvature
+        # jumps 1000x, the same relative discrepancy reads as a much larger
+        # penalty, until the EMA catches up.
         grown = self._normalised("ema", [1.0, 1.0, 1.0, 1000.0])
         self.assertAlmostEqual(grown[0], 1.0, places=9)
         self.assertGreater(grown[-1], 1.5)

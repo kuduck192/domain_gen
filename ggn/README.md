@@ -10,13 +10,15 @@ selected layers.
 - For softmax cross-entropy, the GGN equals the true Fisher.
 - For ReLU networks with frozen BatchNorm, its layer-diagonal blocks equal
   those of the Hessian.
-- The normalizer is detached and, with `ggn_scale_mode=step`, taken from the
-  same step, so the penalty is exactly invariant under G_i -> c G_i and cannot
-  be lowered by inflating the overall curvature. The original `ema` mode lags
-  behind: growing the scale does lower the penalty on the following steps. On
-  PACS at `ggn_lambda=1` the optimiser exploited exactly that -- mean_i ||G_i||_F^2
-  grew 10-150x within 300 steps of the penalty switching on and training
-  collapsed (see `results_kaggle/`).
+- The normalizer is detached. With `ggn_scale_mode=step` it is taken from the
+  same step, so the penalty's value is exactly invariant under G_i -> c G_i;
+  the original `ema` mode lags behind the scale. Being detached, either one
+  only rescales the penalty's gradient (an effective λ).
+- On PACS at `ggn_lambda=1` training collapses once the penalty switches on,
+  in both modes (`results_kaggle/`, `results_a5000/ggn_verify_1107`):
+  the NLL goes from ~0.02 to 1-2.5 and mean_i ‖G_i‖²_F grows 10-150x. The
+  growth follows the NLL (less confident predictions have a larger
+  diag(p) − ppᵀ), so it is a symptom, not the cause.
 
 ## How it is computed
 
