@@ -3,7 +3,7 @@
 GGNMatch penalizes differences between the per-domain generalized Gauss-Newton
 (GGN) matrices of the last layers:
 
-    min_θ  CE(θ) + λ · mean_{i<j} ‖G_i(θ) − G_j(θ)‖² / EMA(mean_i ‖G_i‖²)
+    min_θ  CE(θ) + λ · mean_{i<j} ‖G_i(θ) − G_j(θ)‖² / sg[mean_i ‖G_i‖²]
 
 Here G_i = E_{x ∈ domain i}[J(x)ᵀ (diag(p) − ppᵀ) J(x)], restricted to the
 selected layers.
@@ -24,8 +24,12 @@ selected layers.
    SSᵀ = diag(p) − ppᵀ and ξ Rademacher. It is backpropagated once from the
    logits.
 2. Per-sample layer gradients are reduced to a Gram matrix
-   K[n, m] = g_nᵀ g_m. Linear layers use a rank-one formula. Conv layers use
-   materialised per-sample gradients.
+   K[n, m] = g_nᵀ g_m. Layers applied at a single position use a rank-one
+   formula. For weights shared over positions (conv, token-wise linear) there
+   are two exact routes and `layer_gram` takes the one that stores less:
+   materialised per-sample gradients (k B d_out d_in) or position-wise inner
+   products (O((k B T)² + (B T)²)). The second is what fits all of
+   ResNet-50's layer4 on a 16 GB GPU.
 3. All penalties are computed from K. No parameter-sized matrix is ever
    formed.
 4. ⟨G_i, G_j⟩_F is estimated without bias with a U-statistic over sample
