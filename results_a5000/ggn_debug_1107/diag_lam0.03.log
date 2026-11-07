@@ -1,0 +1,26 @@
+loaded 8 + 30 minibatches in 5s
+/home/ubuntu/duc.lm2/domain_gen_venv/lib/python3.11/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/ubuntu/duc.lm2/domain_gen_venv/lib/python3.11/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/home/ubuntu/duc.lm2/domain_gen_venv/lib/python3.11/site-packages/torch/autograd/graph.py:823: UserWarning: Attempting to run cuBLAS, but there was no current CUDA context! Attempting to set the primary context... (Triggered internally at /pytorch/aten/src/ATen/cuda/CublasHandlePool.cpp:180.)
+  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+step 0: rho pen +0.802 (sketch +0.901) nll +0.503 | D train-train 1.276±0.009 train-test 0.917 | 25.6s
+step 300: rho pen -0.013 (sketch +0.160) nll +0.213 | D train-train 1.179±0.368 train-test 10.896 | 24.3s
+step 600: rho pen -0.016 (sketch +0.670) nll +0.310 | D train-train 1.493±0.181 train-test 39.385 | 24.4s
+step 900: rho pen -0.004 (sketch +0.473) nll +0.014 | D train-train 1.685±0.179 train-test 27.853 | 24.4s
+step 1200: rho pen +0.017 (sketch +0.386) nll +0.054 | D train-train 1.602±0.136 train-test 40.417 | 24.4s
+step 1500: rho pen +0.050 (sketch -0.075) nll +0.320 | D train-train 1.429±0.122 train-test 4.147 | 24.3s
+step 1800: rho pen -0.009 (sketch +0.288) nll +0.091 | D train-train 1.128±0.524 train-test 7.854 | 24.3s
+step 2100: rho pen +0.016 (sketch -0.027) nll +0.498 | D train-train 0.602±0.203 train-test 5.747 | 24.2s
+step 2400: rho pen +0.005 (sketch +0.077) nll +0.035 | D train-train 0.866±0.321 train-test 23.030 | 24.2s
+step 2700: rho pen +0.050 (sketch +0.004) nll +0.192 | D train-train 1.275±0.258 train-test 12.088 | 24.2s
+step 3000: rho pen +0.014 (sketch -0.184) nll +0.032 | D train-train 1.181±0.982 train-test 9.185 | 24.1s
+step 3300: rho pen +0.030 (sketch +0.186) nll +0.249 | D train-train 0.514±0.117 train-test 9.411 | 24.1s
+step 3600: rho pen +0.014 (sketch +0.088) nll +0.064 | D train-train 0.679±0.200 train-test 6.290 | 24.1s
+step 3900: rho pen +0.012 (sketch +0.012) nll +0.379 | D train-train 1.120±0.181 train-test 9.608 | 24.1s
+step 4200: rho pen -0.014 (sketch +0.408) nll +0.320 | D train-train 1.140±0.366 train-test 3.921 | 24.1s
+step 4500: rho pen -0.014 (sketch +0.322) nll +0.241 | D train-train 0.305±0.145 train-test 11.274 | 24.1s
+step 4800: rho pen -0.007 (sketch +0.081) nll +0.110 | D train-train 1.426±0.686 train-test 9.362 | 24.1s
+step 5000: rho pen -0.037 (sketch +0.299) nll +0.262 | D train-train -0.221±0.372 train-test 5.963 | 24.0s
