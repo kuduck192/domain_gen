@@ -365,5 +365,43 @@ class TestGradientLogging(unittest.TestCase):
         self.assertAlmostEqual(logs["grad_cos"], cos, places=9)
 
 
+class TestDiagnostics(unittest.TestCase):
+    """The statistics that ggn.diagnose reports."""
+
+    def test_signal_fraction(self):
+        from ggn.diagnose import signal_fraction
+        g = torch.Generator().manual_seed(0)
+        rand = lambda n: torch.randn(n, generator=g, dtype=torch.float64)
+        mu = rand(2000)
+        same = signal_fraction([mu.clone() for _ in range(5)])
+        self.assertAlmostEqual(same["rho"], 1.0, places=9)
+        self.assertAlmostEqual(same["pair_cos"], 1.0, places=9)
+        noise = signal_fraction([rand(20000) for _ in range(8)])
+        self.assertLess(abs(noise["rho"]), 0.05)
+        # ||mu||^2 ~ E||noise||^2, so rho ~ 1/2
+        half = signal_fraction([mu + rand(2000) for _ in range(200)])
+        self.assertAlmostEqual(half["rho"], 0.5, delta=0.05)
+
+    def test_pair_stats_match_explicit_matrices(self):
+        from ggn.diagnose import jackknife, pair_stats
+        g = torch.Generator().manual_seed(1)
+        Gs = []
+        for _ in range(4):
+            A = torch.randn(6, 6, generator=g, dtype=torch.float64)
+            Gs.append(A @ A.T)
+        P = torch.stack([torch.stack([(a * b).sum() for b in Gs]) for a in Gs])
+        train, test = [1, 2, 3], [0]
+        stats = pair_stats(P, train, test)
+        scale = sum(float((Gs[i] ** 2).sum()) for i in train) / 3
+        sq = lambda i, j: float(((Gs[i] - Gs[j]) ** 2).sum()) / scale
+        self.assertAlmostEqual(stats["train_train"],
+                               (sq(1, 2) + sq(1, 3) + sq(2, 3)) / 3, places=10)
+        self.assertAlmostEqual(stats["train_test"],
+                               (sq(1, 0) + sq(2, 0) + sq(3, 0)) / 3, places=10)
+        jk = jackknife(torch.stack([P] * 5), train, test)
+        self.assertAlmostEqual(jk["train_train"], stats["train_train"], places=10)
+        self.assertAlmostEqual(jk["train_train_se"], 0.0, places=10)
+
+
 if __name__ == "__main__":
     unittest.main()
